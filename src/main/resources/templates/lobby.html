@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/lobby.js"></script>
+    <title>Lobby</title>
+    <style>
+
+    body {
+        background-color: rgb(155,165,148);
+    }
+
+</style>
+</head>
+<body>
+<div style="margin-top: 100px" class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 onclick="disconnect()">One Night Werewolf: Pre-game lobby</h2>
+            <hr />
+            <h3>(<span id="playingAmount" th:text="${#lists.size(usersPlaying)}"></span>) Playing:</h3>
+            <ul id="playingList">
+                <li th:each="user:${usersPlaying}" th:text="${user}"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
