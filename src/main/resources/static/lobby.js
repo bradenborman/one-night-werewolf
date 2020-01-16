@@ -11,6 +11,8 @@ function connect() {
                   regeneratePlayersPlaying(playingList)
         });
 
+        stompClient.send("/one-night/join-game", {}, $("#playerName").text());
+
     });
 
 }

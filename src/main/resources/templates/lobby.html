@@ -17,14 +17,14 @@
 </style>
 </head>
 <body>
+<div style="display: none;" id="playerName" th:text="${playerName}"></div>
 <div style="margin-top: 100px" class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h2 onclick="disconnect()">One Night Werewolf: Pre-game lobby</h2>
+            <h2>One Night Werewolf: Pre-game lobby</h2>
             <hr />
-            <h3>(<span id="playingAmount" th:text="${#lists.size(usersPlaying)}"></span>) Playing:</h3>
+            <h3>(<span id="playingAmount"></span>) Playing:</h3>
             <ul id="playingList">
-                <li th:each="user:${usersPlaying}" th:text="${user}"></li>
             </ul>
         </div>
     </div>
