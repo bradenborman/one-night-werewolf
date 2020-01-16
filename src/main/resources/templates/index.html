@@ -18,7 +18,7 @@
     .header {
         font-family: 'Butcherman';
         text-align: center;
-        font-size: 3em;
+        font-size: 4em;
     }
 
     .options {
@@ -38,16 +38,16 @@
 <body>
 <div style="margin-top: 100px" class="container">
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-6">
             <img class="img-fluid" th:src="@{${'/imgs/one-night.png'}}"/>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             <h1 class="header">One Night<br />Werewolf</h1>
             <div style="margin-top: 50px" class="row">
                 <div class="col-sm-12 options">
                     <h3>Options</h3>
                     <button onclick="startGame()" class="btn btn-outline-info btn-block">Host</button>
-                    <button class="btn btn-outline-info btn-block">Join Game</button>
+                    <button onclick="joinGame()" class="btn btn-outline-info btn-block">Join Game</button>
                 </div>
             </div>
         </div>
