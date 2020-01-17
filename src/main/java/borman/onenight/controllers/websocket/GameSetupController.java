@@ -1,8 +1,9 @@
 package borman.onenight.controllers.websocket;
 
 import borman.onenight.RandomService;
-import borman.onenight.config.WebSocketEventListener;
 import borman.onenight.data.PlayingList;
+import borman.onenight.models.GameData;
+import borman.onenight.models.Lobby;
 import borman.onenight.models.Player;
 import borman.onenight.services.DataService;
 import org.slf4j.Logger;
@@ -20,30 +21,16 @@ import java.util.stream.Collectors;
 @Controller
 public class GameSetupController {
 
-    @Autowired
-    DataService dataService;
-
     private static final Logger logger = LoggerFactory.getLogger(GameSetupController.class);
 
     @MessageMapping("/join-game")
     @SendTo("/one-night/users-playing")
     public List<String> start(@Payload Player player, SimpMessageHeaderAccessor headerAccessor) {
-
-        logger.info("READING FILE");
-        logger.info(dataService.readJSONFileAsString());
-
-        dataService.writeDataToFile();
-        logger.info("READING AfterWrite");
-        logger.info(dataService.readJSONFileAsString());
-
         player.setPlayerId(RandomService.createUserIdForSession(player.getUsername()));
         headerAccessor.getSessionAttributes().put("username", player.getPlayerId());
-
         List<Player> allPlaying = PlayingList.getAllPlaying();
         allPlaying.add(player);
-
         List<String> userNames = allPlaying.stream().map(Player::getUsername).collect(Collectors.toList());
-
         return userNames;
     }
 

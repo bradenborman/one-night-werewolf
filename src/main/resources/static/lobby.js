@@ -11,7 +11,7 @@ function connect() {
                   regeneratePlayersPlaying(playingList)
         });
 
-        var player = { username: $("#playerName").text(), lobbyPlaying: "234"};
+        var player = { username: $("#playerName").text(), lobbyPlaying: $("#lobbyId").text()};
         stompClient.send("/one-night/join-game", {}, JSON.stringify(player));
 
     });

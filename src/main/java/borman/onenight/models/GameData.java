@@ -2,16 +2,26 @@ package borman.onenight.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameData {
 
-    @JsonProperty("test")
-    private String test;
+    @JsonProperty("lobbyList")
+    private List<Lobby> lobbyList = new ArrayList<>();
 
-    public String getTest() {
-        return test;
+    public List<Lobby> getLobbyList() {
+        return lobbyList;
     }
 
-    public void setTest(String test) {
-        this.test = test;
+    public void setLobbyList(List<Lobby> lobbyList) {
+        this.lobbyList = lobbyList;
+    }
+
+    @Override
+    public String toString() {
+        return "GameData{" +
+                "lobbyList=" + lobbyList +
+                '}';
     }
 }
