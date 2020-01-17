@@ -8,6 +8,7 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/lobby.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Butcherman' rel='stylesheet'>
     <title>Lobby</title>
     <style>
 
@@ -15,15 +16,21 @@
         background-color: rgb(155,165,148);
     }
 
-</style>
+    .header {
+        font-family: 'Butcherman';
+        font-size: 3em;
+    }
+
+    </style>
 </head>
 <body>
 <div style="display: none;" id="playerName" th:text="${playerName}"></div>
 <div style="margin-top: 100px" class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h2>One Night Werewolf: Pre-game lobby</h2>
-            <hr />
+            <h2 class="header">One Night Werewolf</h2>
+            <hr/>
+            <h1 style="text-align:center;">Lobby: <span th:text="${lobby}"></span></h1>
             <h3>(<span id="playingAmount"></span>) Playing:</h3>
             <ul id="playingList">
             </ul>

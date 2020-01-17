@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-
 @Controller
 public class ViewController {
 
@@ -19,8 +18,8 @@ public class ViewController {
 
 
     @GetMapping("/lobby/{lobby}")
-    public String lobby(Model model, @PathVariable("lobby") String lobby, @RequestParam("playerName") String playerName)
-    {
+    public String lobby(Model model, @PathVariable("lobby") String lobby, @RequestParam("playerName") String playerName) {
+        model.addAttribute("lobby", lobby);
         model.addAttribute("playerName", playerName);
         return "lobby";
     }
