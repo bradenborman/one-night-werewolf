@@ -28,8 +28,14 @@ public class GameSetupController {
     @MessageMapping("/join-game")
     @SendTo("/one-night/users-playing")
     public List<String> start(@Payload Player player, SimpMessageHeaderAccessor headerAccessor) {
+
         logger.info("READING FILE");
         logger.info(dataService.readJSONFileAsString());
+
+        dataService.writeDataToFile();
+        logger.info("READING AfterWrite");
+        logger.info(dataService.readJSONFileAsString());
+
         player.setPlayerId(RandomService.createUserIdForSession(player.getUsername()));
         headerAccessor.getSessionAttributes().put("username", player.getPlayerId());
 
