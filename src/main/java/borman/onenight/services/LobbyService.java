@@ -32,8 +32,11 @@ public class LobbyService {
         gameData.getLobbyList()
                 .removeIf(lobby -> lobby.getLobbyId().equals(lobbyChanged.getLobbyId()));
 
-        gameData.getLobbyList().add(lobbyChanged);
+        //Add back lobby if players are still in it. else will delete
+        if (lobbyChanged.getPlayersInLobby().size() > 0)
+            gameData.getLobbyList().add(lobbyChanged);
 
     }
+
 
 }

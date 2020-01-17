@@ -57,7 +57,7 @@ public class WebSocketEventListener {
                 .orElseThrow(RuntimeException::new);
 
         //RemoveUser
-        lobbyUserWasPlaying.getPlayersInLobby().stream().filter(player -> !player.getPlayerId().equals(playerId)).collect(Collectors.toList());
+        lobbyUserWasPlaying.setPlayersInLobby(lobbyUserWasPlaying.getPlayersInLobby().stream().filter(player -> !player.getPlayerId().equals(playerId)).collect(Collectors.toList()));
 
         //Remaining Users
        List<String> remainingUsers = lobbyUserWasPlaying.getPlayersInLobby().stream().map(Player::getUsername).collect(Collectors.toList());
