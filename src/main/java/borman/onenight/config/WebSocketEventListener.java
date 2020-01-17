@@ -1,7 +1,10 @@
 package borman.onenight.config;
 
-import borman.onenight.data.PlayingList;
+import borman.onenight.models.GameData;
+import borman.onenight.models.Lobby;
 import borman.onenight.models.Player;
+import borman.onenight.services.DataService;
+import borman.onenight.services.LobbyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,14 @@ public class WebSocketEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
+
+    @Autowired
+    DataService dataService;
+
+    @Autowired
+    LobbyService lobbyService;
+
+
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
@@ -30,19 +41,34 @@ public class WebSocketEventListener {
 
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+
+        GameData existingGameData = dataService.readJsonFile();
+
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String username = (String) headerAccessor.getSessionAttributes().get("username");
+        String playerIdAndLobby = (String) headerAccessor.getSessionAttributes().get("playerId");
 
-        List<Player> updatedList = PlayingList.getAllPlaying().stream()
-                .filter(player -> !player.getPlayerId().equals(username))
-                .collect(Collectors.toList());
+        String[] x = playerIdAndLobby.split(":");
+        String playerId = x[0];
+        String lobby = x[1];
 
-        PlayingList.setAllPlaying(updatedList);
+        Lobby lobbyUserWasPlaying = existingGameData.getLobbyList().stream()
+                .filter(lob -> lob.getLobbyId().equals(lobby))
+                .findFirst()
+                .orElseThrow(RuntimeException::new);
 
-        List<String> userNames = updatedList.stream().map(Player::getUsername).collect(Collectors.toList());
+        //RemoveUser
+        lobbyUserWasPlaying.getPlayersInLobby().stream().filter(player -> !player.getPlayerId().equals(playerId)).collect(Collectors.toList());
 
-        messagingTemplate.convertAndSend("/one-night/users-playing", userNames);
-        logger.info(username + " lost");
+        //Remaining Users
+       List<String> remainingUsers = lobbyUserWasPlaying.getPlayersInLobby().stream().map(Player::getUsername).collect(Collectors.toList());
+
+        lobbyService.updateGameDataWithNewLobbyDetail(existingGameData, lobbyUserWasPlaying);
+
+        //Update with new data
+        dataService.writeDataToFile(existingGameData);
+
+        messagingTemplate.convertAndSend("/one-night/users-playing", remainingUsers);
+        logger.info(playerId + " lost");
     }
 
 }
