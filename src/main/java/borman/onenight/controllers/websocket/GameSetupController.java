@@ -23,12 +23,12 @@ public class GameSetupController {
     @Autowired
     DataService dataService;
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(GameSetupController.class);
 
     @MessageMapping("/join-game")
     @SendTo("/one-night/users-playing")
     public List<String> start(@Payload Player player, SimpMessageHeaderAccessor headerAccessor) {
-
+        logger.info("READING FILE");
         logger.info(dataService.readJSONFileAsString());
         player.setPlayerId(RandomService.createUserIdForSession(player.getUsername()));
         headerAccessor.getSessionAttributes().put("username", player.getPlayerId());
