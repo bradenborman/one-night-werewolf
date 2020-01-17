@@ -23,7 +23,7 @@ public class ViewController {
 
 
     @GetMapping("/lobby/{lobby}")
-    public String lobby(Model model, @PathVariable("lobby") String lobbyId, @RequestParam("playerName") String playerName) {
+    public synchronized String lobby(Model model, @PathVariable("lobby") String lobbyId, @RequestParam("playerName") String playerName) {
         if (lobbyService.doesLobbyExist(lobbyId)) {
             model.addAttribute("lobby", lobbyId);
             model.addAttribute("playerName", playerName);
