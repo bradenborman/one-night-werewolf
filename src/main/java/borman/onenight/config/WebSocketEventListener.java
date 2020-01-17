@@ -34,7 +34,7 @@ public class WebSocketEventListener {
         String username = (String) headerAccessor.getSessionAttributes().get("username");
 
         List<Player> updatedList = PlayingList.getAllPlaying().stream()
-                .filter(player -> !player.getUsername().equals(username))
+                .filter(player -> !player.getPlayerId().equals(username))
                 .collect(Collectors.toList());
 
         PlayingList.setAllPlaying(updatedList);

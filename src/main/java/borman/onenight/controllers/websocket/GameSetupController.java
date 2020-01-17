@@ -1,5 +1,6 @@
 package borman.onenight.controllers.websocket;
 
+import borman.onenight.RandomService;
 import borman.onenight.data.PlayingList;
 import borman.onenight.models.Player;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,8 +19,8 @@ public class GameSetupController {
     @SendTo("/one-night/users-playing")
     public List<String> start(@Payload Player player, SimpMessageHeaderAccessor headerAccessor) {
 
-        //todo gen playerId and set in session
-        headerAccessor.getSessionAttributes().put("username", player.getUsername());
+        player.setPlayerId(RandomService.createUserIdForSession(player.getUsername()));
+        headerAccessor.getSessionAttributes().put("username", player.getPlayerId());
 
         List<Player> allPlaying = PlayingList.getAllPlaying();
         allPlaying.add(player);

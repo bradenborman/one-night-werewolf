@@ -1,5 +1,6 @@
 package borman.onenight.controllers;
 
+import borman.onenight.RandomService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,8 +9,7 @@ public class ApiController {
 
     @PostMapping("/startNewLobby")
     public String startNewLobby() {
-        System.out.println("Starting new lobby");
-        return "234";
+        return RandomService.createRandomLobbyCode();
     }
 
 }
