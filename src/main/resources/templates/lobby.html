@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:width="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,32 +11,31 @@
     <link href='https://fonts.googleapis.com/css?family=Butcherman' rel='stylesheet'>
     <title>Lobby</title>
     <style>
+ body {
+    background-color: rgb(155,165,148);
+ }
+ .header {
+     font-family: 'Butcherman';
+     font-size: 2.5em;
+     color: #e65c00;
+ }
 
-    body {
-        background-color: rgb(155,165,148);
-    }
+ #gamePlay {
+    display: none;
+ }
+ .playingCard {
+    margin: auto;
+ }
 
-    .header {
-        font-family: 'Butcherman';
-        font-size: 2.5em;
-        color: #e65c00;
-    }
+ #MiddleCardsSection {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+ }
 
-    button {
-        margin-auto;
-        width: 70%;
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 30px;
-    }
-
-    #gamePlay {
-        display: none;
-    }
-
-    .playingCard {
-        margin: auto;
-    }
+ #playingList {
+    font-size: 2em;
+ }
 
     </style>
 </head>
@@ -59,20 +58,29 @@
             </ul>
         </div>
         <div class="col-sm-4">
-                <button id="readyToStartBtn" onclick="readyToStart()">Ready to Start</button>
-                <br />
-                <button  onclick="returnHome()">Home</button>
-        </div>
-        <div class="col-sm-4">
+            <button id="readyToStartBtn" onclick="readyToStart()">Ready to Start</button>
+            <br/>
+            <button onclick="returnHome()">Home</button>
         </div>
     </div>
 
-    <div id="gamePlay" class="row">
-        <div class="col-sm-12">
-            <img id="cardIMG" class="playingCard" th:src="@{${'/imgs/back_of_card.jpg'}}" />
-        </div>
-    </div>
 
+    <div id="gamePlay">
+        <div>
+            <img id="cardIMG" class="playingCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+
+        </div>
+
+        <div>
+            <div id="MiddleCardsSection">
+                <h3>Middle Cards</h3>
+                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+            </div>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>
