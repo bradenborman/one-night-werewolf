@@ -4,8 +4,17 @@ import java.util.List;
 
 public class UsersPlayingResponse {
 
+    private boolean isReadyToStartGame = false;
     private List<Player> playersInLobby;
     private String generatedPlayerId;
+
+    public boolean isReadyToStartGame() {
+        return isReadyToStartGame;
+    }
+
+    public void setReadyToStartGame(boolean readyToStartGame) {
+        isReadyToStartGame = readyToStartGame;
+    }
 
     public List<Player> getPlayersInLobby() {
         return playersInLobby;

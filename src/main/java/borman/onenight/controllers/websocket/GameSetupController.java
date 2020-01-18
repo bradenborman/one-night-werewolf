@@ -1,5 +1,6 @@
 package borman.onenight.controllers.websocket;
 
+import borman.onenight.ReadyToStartService;
 import borman.onenight.utilities.RandomUtility;
 import borman.onenight.models.*;
 import borman.onenight.services.DataService;
@@ -23,6 +24,9 @@ public class GameSetupController {
 
     @Autowired
     LobbyService lobbyService;
+
+    @Autowired
+    ReadyToStartService readyToStartService;
 
     @MessageMapping("/join-game")
     @SendTo("/one-night/users-playing")
@@ -80,8 +84,12 @@ public class GameSetupController {
         lobbyService.updateGameDataWithNewLobbyDetail(existingGameData, lobbyUserIsPlaying);
         dataService.writeDataToFile(existingGameData);
 
-
         response.setPlayersInLobby(lobbyUserIsPlaying.getPlayersInLobby());
+
+
+        response.setReadyToStartGame(
+            readyToStartService.isReadyToStart(lobbyUserIsPlaying)
+        );
 
         return response;
     }

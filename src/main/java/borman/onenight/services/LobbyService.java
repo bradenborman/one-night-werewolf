@@ -39,4 +39,16 @@ public class LobbyService {
     }
 
 
+    //TODO add to lobby and say if started or not.
+    public boolean isGameStarted(String lobbyId) {
+        return false;
+    //        GameData existingGameData = dataService.readJsonFile();
+    //
+    //        Lobby lobby = existingGameData.getLobbyList().stream()
+    //                .filter(lo -> lo.getLobbyId().equals(lobbyId))
+    //                .findFirst()
+    //                .orElse(new Lobby());
+    //
+    //        return lobby.is() != null;
+    }
 }

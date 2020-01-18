@@ -23,11 +23,21 @@
     }
 
     button {
-        width: 250px;
+        margin-auto;
+        width: 70%;
         padding: 20px;
         border-radius: 5px;
         margin-bottom: 30px;
     }
+
+    #gamePlay {
+        display: none;
+    }
+
+    .playingCard {
+        margin: auto;
+    }
+
     </style>
 </head>
 <body>
@@ -38,11 +48,11 @@
         <div class="col-sm-12">
             <h2 class="header">One Night Werewolf</h2>
             <hr/>
-            <h1 style="text-align:center;">Lobby: <span id="lobbyId" th:text="${lobby}"></span></h1>
+            <h1 id="LobbyTxt" style="text-align:center;">Lobby: <span id="lobbyId" th:text="${lobby}"></span></h1>
             <hr/>
         </div>
     </div>
-    <div style="margin-top: 60px;" class="row">
+    <div id="preGame" style="margin-top: 60px;" class="row">
         <div class="col-sm-4">
             <h3>(<span id="playingAmount"></span>) Playing:</h3>
             <ul id="playingList">
@@ -56,6 +66,13 @@
         <div class="col-sm-4">
         </div>
     </div>
+
+    <div id="gamePlay" class="row">
+        <div class="col-sm-12">
+            <img class="playingCard" th:src="@{${'/imgs/back_of_card.jpg'}}" />
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

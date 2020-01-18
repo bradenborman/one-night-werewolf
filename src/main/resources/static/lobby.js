@@ -6,11 +6,11 @@ function connect() {
     var socket = new SockJS('/one-night-werewolf-socket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
         stompClient.subscribe('/one-night/users-playing', function (greeting) {
                   var response = JSON.parse(greeting.body)
                   playerId = playerId == null ? response.generatedPlayerId : playerId;
                   regeneratePlayersPlaying(response)
+                  isTimeToSetupGame(response)
         });
 
         var player = { username: $("#playerName").text(), lobbyPlaying: $("#lobbyId").text()};
@@ -22,13 +22,11 @@ function connect() {
 
 function regeneratePlayersPlaying(response) {
     $("#playingList").empty()
-    $("#playingAmount").text(playingList.length)
+    $("#playingAmount").text(response.playersInLobby.length)
     $.each(response.playersInLobby, function(i, obj) {
         if(obj.isReadyToStart != null && obj.isReadyToStart) {
             $("#playingList").append("<li style='color: green;'>" + obj.username  + "</li>")
 
-            console.log("obj.playerId: " + obj.playerId)
-            console.log("playerId: " + playerId)
             //Hide button if user is ready to go
             if(obj.playerId == playerId) {
                  $("#readyToStartBtn").hide(100)
@@ -47,6 +45,17 @@ function readyToStart() {
 
 function returnHome() {
     window.location.href = "/";
+}
+
+function isTimeToSetupGame(response) {
+
+    //Hide Pregame and change text at top to started
+    if(response.readyToStartGame != null && response.readyToStartGame) {
+        $("#preGame").hide(200);
+        $("#LobbyTxt").text("Please Look at your card.")
+        $("#gamePlay").show(200);
+    }
+
 }
 
 $(document).ready(function(){
