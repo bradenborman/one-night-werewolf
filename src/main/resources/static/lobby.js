@@ -9,6 +9,7 @@ function connect() {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/one-night/users-playing', function (greeting) {
                   var response = JSON.parse(greeting.body)
+                  playerId = playerId == null ? response.generatedPlayerId : playerId;
                   regeneratePlayersPlaying(response)
         });
 
@@ -20,15 +21,22 @@ function connect() {
 }
 
 function regeneratePlayersPlaying(response) {
-    playerId = response.generatedPlayerId;
-
     $("#playingList").empty()
     $("#playingAmount").text(playingList.length)
     $.each(response.playersInLobby, function(i, obj) {
-        if(obj.isReadyToStart)
+        if(obj.isReadyToStart) {
             $("#playingList").append("<li style='color: green;'>" + obj.username  + "</li>")
-        else
+
+            console.log("obj.playerId: " + obj.playerId)
+            console.log("playerId: " + playerId)
+            //Hide button if user is ready to go
+            if(obj.playerId == playerId) {
+                 $("#readyToStartBtn").hide(100)
+            }
+        }
+        else {
             $("#playingList").append("<li style='color: red;'>" + obj.username  + "</li>")
+        }
     });
 }
 

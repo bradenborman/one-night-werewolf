@@ -58,28 +58,30 @@ public class GameSetupController {
 
     @MessageMapping("/ready-to-start")
     @SendTo("/one-night/users-playing")
-    public synchronized UsersPlayingResponse readyToStart(@Payload ReadyToStartRequest readyToStartRequset) {
+    public synchronized UsersPlayingResponse readyToStart(@Payload ReadyToStartRequest readyToStartRequest) {
 
         GameData existingGameData = dataService.readJsonFile();
+        UsersPlayingResponse response = new UsersPlayingResponse();
 
         //get lobby where user is playing.
         Lobby lobbyUserIsPlaying = existingGameData.getLobbyList().stream()
-                .filter(lob -> lob.getLobbyId().equals(readyToStartRequset.getLobbyPlaying()))
+                .filter(lob -> lob.getLobbyId().equals(readyToStartRequest.getLobbyPlaying()))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
 
         lobbyUserIsPlaying.getPlayersInLobby().stream()
-                .filter(player -> player.getPlayerId().equals(readyToStartRequset.getPlayerId()))
+                .filter(player -> player.getPlayerId().equals(readyToStartRequest.getPlayerId()))
                 .findFirst()
-                .ifPresent(player -> player.setReadyToStart(true));
+                .ifPresent(player -> {
+                    response.setGeneratedPlayerId(player.getPlayerId());
+                    player.setReadyToStart(true);
+                });
         //Update with new data
         lobbyService.updateGameDataWithNewLobbyDetail(existingGameData, lobbyUserIsPlaying);
         dataService.writeDataToFile(existingGameData);
 
 
-        UsersPlayingResponse response = new UsersPlayingResponse();
         response.setPlayersInLobby(lobbyUserIsPlaying.getPlayersInLobby());
-        response.setGeneratedPlayerId(readyToStartRequset.getLobbyPlaying());
 
         return response;
     }

@@ -21,8 +21,6 @@
         font-size: 2.5em;
         color: #e65c00;
     }
-
-
     </style>
 </head>
 <body>
@@ -34,6 +32,7 @@
             <h2 class="header">One Night Werewolf</h2>
             <hr/>
             <h1 style="text-align:center;">Lobby: <span id="lobbyId" th:text="${lobby}"></span></h1>
+            <hr/>
         </div>
     </div>
     <div style="margin-top: 60px;" class="row">
@@ -43,8 +42,8 @@
             </ul>
         </div>
         <div class="col-sm-4">
-            <div class="card">
-                <button onclick="readyToStart()">Ready to Start</button>
+            <div>
+                <button id="readyToStartBtn" onclick="readyToStart()">Ready to Start</button>
             </div>
         </div>
         <div class="col-sm-4">
