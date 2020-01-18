@@ -1,6 +1,7 @@
 
 var stompClient = null;
 var playerId;
+var lobbyId;
 
 function connect() {
     var socket = new SockJS('/one-night-werewolf-socket');
@@ -56,14 +57,31 @@ function isTimeToSetupGame(response) {
     //Hide Pregame and change text at top to started
     if(response.readyToStartGame != null && response.readyToStartGame) {
         $("#preGame").hide(200);
-        $("#LobbyTxt").text("Please Look at your card.")
+        $("#LobbyTxt").text("Please look at your card.")
         $("#gamePlay").show(200);
+        makeCallToRetrieveInitialRoll(response);
     }
 
 }
 
+function makeCallToRetrieveInitialRoll() {
+
+    var request = { playerId: playerId, lobbyPlaying: lobbyId};
+
+     $.ajax({
+       url: "/retrieve-roll",
+       type:"POST",
+       data: JSON.stringify(request),
+       contentType:"application/json; charset=utf-8",
+       dataType:"json",
+       success: function(data){
+         console.log(data)
+         $("#cardIMG").attr("src", "/imgs/" + data.imgSrc);
+       }
+     })
+}
+
 $(document).ready(function(){
     connect()
+    lobbyId = $("#lobbyId").text()
 });
-
-

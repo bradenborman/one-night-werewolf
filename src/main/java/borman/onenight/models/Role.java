@@ -2,21 +2,21 @@ package borman.onenight.models;
 
 public enum Role {
 
-    WEREWOLF1("WEREWOLF", "WEREWOLF", ""),
-    WEREWOLF2("WEREWOLF", "WEREWOLF", ""),
-    TROUBLEMAKER("TROUBLEMAKER", "VILLAGER", ""),
-    ROBBER("ROBBER", "VILLAGER", ""),
-    INSOMNIAC("INSOMNIAC", "VILLAGER", ""),
-    DRUNK("DRUNK", "VILLAGER", ""),
-    SEER("SEER", "VILLAGER", ""),
-    TANNER("TANNER", "TANNER", ""),
-    HUNTER("HUNTER", "VILLAGER", ""),
-    MINION("MINION", "WEREWOLF", ""),
-    VILLAGER1("VILLAGER", "VILLAGER", ""),
-    VILLAGER2("VILLAGER", "VILLAGER", ""),
-    VILLAGER3("VILLAGER", "VILLAGER", ""),
-    MASON1("MASON", "VILLAGER", ""),
-    MASON2("MASON", "VILLAGER", "");
+    WEREWOLF1("WEREWOLF", "WEREWOLF", "Werewolf.png"),
+    WEREWOLF2("WEREWOLF", "WEREWOLF", "Werewolf.png"),
+    TROUBLEMAKER("TROUBLEMAKER", "VILLAGER", "Troublemaker.png"),
+    ROBBER("ROBBER", "VILLAGER", "Robber.png"),
+    INSOMNIAC("INSOMNIAC", "VILLAGER", "Insomniac.png"),
+    DRUNK("DRUNK", "VILLAGER", "Drunk.png"),
+    SEER("SEER", "VILLAGER", "Seer.png"),
+    TANNER("TANNER", "TANNER", "Tanner.png"),
+    HUNTER("HUNTER", "VILLAGER", "Hunter.png"),
+    MINION("MINION", "WEREWOLF", "Minion.png"),
+    VILLAGER1("VILLAGER", "VILLAGER", "Villager.png"),
+    VILLAGER2("VILLAGER", "VILLAGER", "Villager.png"),
+    VILLAGER3("VILLAGER", "VILLAGER", "Villager.png"),
+    MASON1("MASON", "VILLAGER", "Mason.png"),
+    MASON2("MASON", "VILLAGER", "Mason.png");
 
     private String displayName;
     private String teamName;
