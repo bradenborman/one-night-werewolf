@@ -1,8 +1,8 @@
-package borman.onenight;
+package borman.onenight.utilities;
 
 import java.util.Random;
 
-public class RandomService {
+public class RandomUtility {
 
     public static String createUserIdForSession(String userName) {
         Random random = new Random();

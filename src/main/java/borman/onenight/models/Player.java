@@ -13,6 +13,12 @@ public class Player {
     @JsonProperty("lobbyPlaying")
     private String lobbyPlaying;
 
+    @JsonProperty("isReadyToStart")
+    private boolean isReadyToStart;
+
+    @JsonProperty("roleAssigned")
+    private String roleAssigned;
+
     public Player() { }
 
     public Player(String playerId, String username, String lobbyPlaying) {
@@ -43,6 +49,22 @@ public class Player {
 
     public void setLobbyPlaying(String lobbyPlaying) {
         this.lobbyPlaying = lobbyPlaying;
+    }
+
+    public boolean isReadyToStart() {
+        return isReadyToStart;
+    }
+
+    public void setReadyToStart(boolean readyToStart) {
+        isReadyToStart = readyToStart;
+    }
+
+    public String getRoleAssigned() {
+        return roleAssigned;
+    }
+
+    public void setRoleAssigned(String roleAssigned) {
+        this.roleAssigned = roleAssigned;
     }
 
     @Override

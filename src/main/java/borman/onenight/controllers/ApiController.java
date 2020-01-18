@@ -1,6 +1,6 @@
 package borman.onenight.controllers;
 
-import borman.onenight.RandomService;
+import borman.onenight.utilities.RandomUtility;
 import borman.onenight.models.GameData;
 import borman.onenight.models.Lobby;
 import borman.onenight.services.DataService;
@@ -17,7 +17,7 @@ public class ApiController {
     @PostMapping("/startNewLobby")
     public String startNewLobby() {
         GameData existingGameData = dataService.readJsonFile();
-        String lobbyCreated = RandomService.createRandomLobbyCode();
+        String lobbyCreated = RandomUtility.createRandomLobbyCode();
         Lobby lobby = new Lobby();
         lobby.setLobbyId(lobbyCreated);
         existingGameData.getLobbyList().add(lobby);

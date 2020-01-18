@@ -22,19 +22,32 @@
         color: #e65c00;
     }
 
+
     </style>
 </head>
 <body>
 <div style="display: none;" id="playerName" th:text="${playerName}"></div>
+<div style="display: none;" id="playerId"></div>
 <div style="margin-top: 100px" class="container">
     <div class="row">
         <div class="col-sm-12">
             <h2 class="header">One Night Werewolf</h2>
             <hr/>
             <h1 style="text-align:center;">Lobby: <span id="lobbyId" th:text="${lobby}"></span></h1>
+        </div>
+    </div>
+    <div style="margin-top: 60px;" class="row">
+        <div class="col-sm-4">
             <h3>(<span id="playingAmount"></span>) Playing:</h3>
             <ul id="playingList">
             </ul>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <button onclick="readyToStart()">Ready to Start</button>
+            </div>
+        </div>
+        <div class="col-sm-4">
         </div>
     </div>
 </div>
