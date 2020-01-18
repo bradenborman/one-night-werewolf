@@ -80,9 +80,6 @@ public class GameSetupController {
                     response.setGeneratedPlayerId(player.getPlayerId());
                     player.setReadyToStart(true);
                 });
-        //Update with new data
-        lobbyService.updateGameDataWithNewLobbyDetail(existingGameData, lobbyUserIsPlaying);
-        dataService.writeDataToFile(existingGameData);
 
         response.setPlayersInLobby(lobbyUserIsPlaying.getPlayersInLobby());
 
@@ -91,10 +88,12 @@ public class GameSetupController {
             readyToStartService.isReadyToStart(lobbyUserIsPlaying)
         );
 
+
+        //Update with new data
+        lobbyService.updateGameDataWithNewLobbyDetail(existingGameData, lobbyUserIsPlaying);
+        dataService.writeDataToFile(existingGameData);
+
         return response;
     }
-
-    //ready-to-start
-
 
 }

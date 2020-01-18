@@ -6,11 +6,15 @@ function connect() {
     var socket = new SockJS('/one-night-werewolf-socket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        stompClient.subscribe('/one-night/users-playing', function (greeting) {
-                  var response = JSON.parse(greeting.body)
+        stompClient.subscribe('/one-night/users-playing', function (json) {
+                  var response = JSON.parse(json.body)
                   playerId = playerId == null ? response.generatedPlayerId : playerId;
                   regeneratePlayersPlaying(response)
                   isTimeToSetupGame(response)
+        });
+
+        stompClient.subscribe('/one-night/roles-determined', function (rolesResponse) {
+                           console.log(JSON.parse(rolesResponse.body))
         });
 
         var player = { username: $("#playerName").text(), lobbyPlaying: $("#lobbyId").text()};

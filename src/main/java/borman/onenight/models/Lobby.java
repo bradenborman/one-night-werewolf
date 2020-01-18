@@ -13,6 +13,9 @@ public class Lobby {
     @JsonProperty("playersInLobby")
     private List<Player> playersInLobby = new ArrayList<>();
 
+    @JsonProperty("middleCards")
+    private List<Role> middleCards = new ArrayList<>();
+
     public String getLobbyId() {
         return lobbyId;
     }
@@ -25,6 +28,13 @@ public class Lobby {
         return playersInLobby;
     }
 
+    public List<Role> getMiddleCards() {
+        return middleCards;
+    }
+
+    public void setMiddleCards(List<Role> middleCards) {
+        this.middleCards = middleCards;
+    }
 
     public void setPlayersInLobby(List<Player> playersInLobby) {
         this.playersInLobby = playersInLobby;
@@ -35,6 +45,7 @@ public class Lobby {
         return "Lobby{" +
                 "lobbyId='" + lobbyId + '\'' +
                 ", playersInLobby=" + playersInLobby +
+                ", middleCards=" + middleCards +
                 '}';
     }
 }

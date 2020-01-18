@@ -17,7 +17,7 @@ public class Player {
     private boolean isReadyToStart;
 
     @JsonProperty("roleAssigned")
-    private String roleAssigned;
+    private Role roleAssigned;
 
     public Player() { }
 
@@ -59,11 +59,11 @@ public class Player {
         isReadyToStart = readyToStart;
     }
 
-    public String getRoleAssigned() {
+    public Role getRoleAssigned() {
         return roleAssigned;
     }
 
-    public void setRoleAssigned(String roleAssigned) {
+    public void setRoleAssigned(Role roleAssigned) {
         this.roleAssigned = roleAssigned;
     }
 
