@@ -24,7 +24,7 @@ function regeneratePlayersPlaying(response) {
     $("#playingList").empty()
     $("#playingAmount").text(playingList.length)
     $.each(response.playersInLobby, function(i, obj) {
-        if(obj.isReadyToStart) {
+        if(obj.isReadyToStart != null && obj.isReadyToStart) {
             $("#playingList").append("<li style='color: green;'>" + obj.username  + "</li>")
 
             console.log("obj.playerId: " + obj.playerId)
@@ -43,6 +43,10 @@ function regeneratePlayersPlaying(response) {
 function readyToStart() {
     var readyToStartObj = { playerId: playerId, lobbyPlaying: $("#lobbyId").text()};
     stompClient.send("/one-night/ready-to-start", {}, JSON.stringify(readyToStartObj));
+}
+
+function returnHome() {
+    window.location.href = "/";
 }
 
 $(document).ready(function(){
