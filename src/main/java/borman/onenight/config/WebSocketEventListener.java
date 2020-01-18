@@ -2,7 +2,6 @@ package borman.onenight.config;
 
 import borman.onenight.models.GameData;
 import borman.onenight.models.Lobby;
-import borman.onenight.models.Player;
 import borman.onenight.models.UsersPlayingResponse;
 import borman.onenight.services.DataService;
 import borman.onenight.services.LobbyService;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -70,6 +68,7 @@ public class WebSocketEventListener {
         UsersPlayingResponse response = new UsersPlayingResponse();
         response.setPlayersInLobby(lobbyUserWasPlaying.getPlayersInLobby());
         response.setGeneratedPlayerId(playerId);
+        response.setLobbyId(lobbyUserWasPlaying.getLobbyId());
 
 
 

@@ -56,6 +56,7 @@ public class GameSetupController {
         UsersPlayingResponse response = new UsersPlayingResponse();
         response.setPlayersInLobby(lobbyUserIsPlaying.getPlayersInLobby());
         response.setGeneratedPlayerId(player.getPlayerId());
+        response.setLobbyId(lobbyUserIsPlaying.getLobbyId());
 
         return response;
     }
@@ -82,6 +83,7 @@ public class GameSetupController {
                 });
 
         response.setPlayersInLobby(lobbyUserIsPlaying.getPlayersInLobby());
+        response.setLobbyId(lobbyUserIsPlaying.getLobbyId());
 
 
         response.setReadyToStartGame(

@@ -4,9 +4,20 @@ import java.util.List;
 
 public class UsersPlayingResponse {
 
+    private String lobbyId;
+
     private boolean isReadyToStartGame = false;
     private List<Player> playersInLobby;
     private String generatedPlayerId;
+
+
+    public String getLobbyId() {
+        return lobbyId;
+    }
+
+    public void setLobbyId(String lobbyId) {
+        this.lobbyId = lobbyId;
+    }
 
     public boolean isReadyToStartGame() {
         return isReadyToStartGame;

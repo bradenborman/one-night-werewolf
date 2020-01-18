@@ -9,13 +9,12 @@ function connect() {
     stompClient.connect({}, function (frame) {
         stompClient.subscribe('/one-night/users-playing', function (json) {
                   var response = JSON.parse(json.body)
-                  playerId = playerId == null ? response.generatedPlayerId : playerId;
-                  regeneratePlayersPlaying(response)
-                  isTimeToSetupGame(response)
-        });
 
-        stompClient.subscribe('/one-night/roles-determined', function (rolesResponse) {
-                           console.log(JSON.parse(rolesResponse.body))
+                  if(response.lobbyId == lobbyId) {
+                      playerId = playerId == null ? response.generatedPlayerId : playerId;
+                      regeneratePlayersPlaying(response)
+                      isTimeToSetupGame(response)
+                  } //Otherwise ignore -- For another lobby
         });
 
         var player = { username: $("#playerName").text(), lobbyPlaying: $("#lobbyId").text()};
