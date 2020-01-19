@@ -36,7 +36,6 @@
  #playingList {
     font-size: 2em;
  }
-
     </style>
 </head>
 <body>
@@ -63,23 +62,19 @@
             <button onclick="returnHome()">Home</button>
         </div>
     </div>
-
-
     <div id="gamePlay">
         <div>
             <img id="cardIMG" class="playingCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
 
         </div>
-
         <div>
             <div id="MiddleCardsSection">
                 <h3>Middle Cards</h3>
-                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
-                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
-                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                <img width="200" id="middle1" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                <img width="200" id="middle2" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                <img width="200" id="middle3" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
             </div>
         </div>
-
     </div>
 </div>
 </body>

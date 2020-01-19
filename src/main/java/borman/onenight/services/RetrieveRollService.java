@@ -3,6 +3,8 @@ package borman.onenight.services;
 import borman.onenight.models.*;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @Service
 public class RetrieveRollService {
 
@@ -27,6 +29,11 @@ public class RetrieveRollService {
                     retrieveRollResponse.setImgSrc(usersRole.getImgSrc());
                     retrieveRollResponse.setRoleName(usersRole.name());
                 });
+
+
+        retrieveRollResponse.setMiddleCards(
+                lobbyUserIsPlaying.getMiddleCards().stream().map(Role::getImgSrc).collect(Collectors.toList())
+        );
 
         return retrieveRollResponse;
     }

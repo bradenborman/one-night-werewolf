@@ -1,10 +1,15 @@
 package borman.onenight.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RetrieveRollResponse {
 
     private String roleName;
     private String displayName;
     private String imgSrc;
+
+    private List<String> middleCards = new ArrayList<>();
 
     public String getRoleName() {
         return roleName;
@@ -30,4 +35,11 @@ public class RetrieveRollResponse {
         this.imgSrc = imgSrc;
     }
 
+    public List<String> getMiddleCards() {
+        return middleCards;
+    }
+
+    public void setMiddleCards(List<String> middleCards) {
+        this.middleCards = middleCards;
+    }
 }

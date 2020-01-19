@@ -76,6 +76,9 @@ function makeCallToRetrieveInitialRoll() {
        success: function(data){
          console.log(data)
          $("#cardIMG").attr("src", "/imgs/" + data.imgSrc);
+         $("#middle1").attr("src", "/imgs/" + data.middleCards[0]);
+         $("#middle2").attr("src", "/imgs/" + data.middleCards[1]);
+         $("#middle3").attr("src", "/imgs/" + data.middleCards[2]);
        }
      })
 }
