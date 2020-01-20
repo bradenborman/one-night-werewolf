@@ -29,15 +29,17 @@ function regeneratePlayersPlaying(response) {
     $("#playingAmount").text(response.playersInLobby.length)
     $.each(response.playersInLobby, function(i, obj) {
         if(obj.isReadyToStart != null && obj.isReadyToStart) {
-            $("#playingList").append("<li style='color: green;'>" + obj.username  + "</li>")
+            $("#playingList").append('<span class="badge badge-pill badge-success">' + obj.username +'</span>')
+
 
             //Hide button if user is ready to go
             if(obj.playerId == playerId) {
                  $("#readyToStartBtn").hide(100)
+                 $("#homeBtn").hide(100)
             }
         }
         else {
-            $("#playingList").append("<li style='color: red;'>" + obj.username  + "</li>")
+            $("#playingList").append('<span class="badge badge-pill badge-secondary">' + obj.username +'</span>')
         }
     });
 }
@@ -55,8 +57,7 @@ function isTimeToSetupGame(response) {
 
     //Hide Pregame and change text at top to started
     if(response.readyToStartGame != null && response.readyToStartGame) {
-        $("#preGame").hide(200);
-        $("#LobbyTxt").text("Please look at your card.")
+        $("#LobbyTxt").text("")
         $("#gamePlay").show(200);
         makeCallToRetrieveInitialRoll(response);
     }

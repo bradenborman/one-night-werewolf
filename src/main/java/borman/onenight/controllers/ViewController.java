@@ -27,7 +27,7 @@ public class ViewController {
         if (lobbyService.doesLobbyExist(lobbyId) && !lobbyService.isGameStarted(lobbyId)) {
             model.addAttribute("lobby", lobbyId);
             model.addAttribute("playerName", playerName);
-            return "lobby";
+            return "lobby-new";
         }
         return "redirect:/";
     }
