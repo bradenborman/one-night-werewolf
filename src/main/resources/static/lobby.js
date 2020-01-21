@@ -84,6 +84,32 @@ function makeCallToRetrieveInitialRoll() {
      })
 }
 
+$(function() {
+
+  var $contextMenu = $("#contextMenu");
+
+    $("body").on("contextmenu", ".badge", function(e) {
+    $contextMenu.css({
+      display: "block",
+      left: e.pageX,
+      top: e.pageY
+    });
+    return false;
+    });
+
+    $contextMenu.on("click", "a", function() {
+     $contextMenu.hide();
+    });
+
+    $("#contextMenu").mouseleave(function(){
+    setTimeout(function(){
+        $contextMenu.hide(50);
+    }, 185);
+    });
+
+});
+
+
 $(document).ready(function(){
     connect()
     lobbyId = $("#lobbyId").text()
@@ -93,3 +119,4 @@ $(".scene--card").click(function(){
 });
 
 });
+
