@@ -87,4 +87,9 @@ function makeCallToRetrieveInitialRoll() {
 $(document).ready(function(){
     connect()
     lobbyId = $("#lobbyId").text()
+
+$(".scene--card").click(function(){
+  $(this).children(".singleCard").toggleClass('is-flipped');
+});
+
 });

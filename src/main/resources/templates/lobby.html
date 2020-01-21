@@ -39,6 +39,48 @@
             padding: 12px;
             margin: 6px;
         }
+
+.scene {
+  width: 200px;
+  height: 260px;
+  border: 1px solid #CCC;
+  margin: 40px 0;
+  perspective: 600px;
+  display: inline-block;
+}
+
+.singleCard {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid #CCC;
+}
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  backface-visibility: hidden;
+}
+
+
+.singleCard.is-flipped {
+  transform: rotateY(180deg);
+}
+
+
+.card__face--front {
+
+}
+
+.card__face--back {
+  transform: rotateY(180deg);
+}
     </style>
 </head>
 <body>
@@ -64,9 +106,36 @@
             <div class="row">
                 <div id="MiddleCardsSection">
                     <h3>Middle Cards</h3>
-                    <img width="200" id="middle1" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
-                    <img width="200" id="middle2" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
-                    <img width="200" id="middle3" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                    <div class="scene scene--card">
+                        <div class="singleCard">
+                            <div class="card__face card__face--front">
+                                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                            <div class="card__face card__face--back">
+                                <img width="200" id="middle1" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scene scene--card">
+                        <div class="singleCard">
+                            <div class="card__face card__face--front">
+                                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                            <div class="card__face card__face--back">
+                                <img width="200" id="middle2" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scene scene--card">
+                        <div class="singleCard">
+                            <div class="card__face card__face--front">
+                                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                            <div class="card__face card__face--back">
+                                <img width="200" id="middle3" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -85,6 +154,5 @@
 <div style="display: none;" id="playerName" th:text="${playerName}"></div>
 <div style="display: none;" id="playerId"></div>
 <!--End Divs for getting Id's-->
-
 </body>
 </html>
