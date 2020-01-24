@@ -29,8 +29,12 @@ function regeneratePlayersPlaying(response) {
     $("#playingAmount").text(response.playersInLobby.length)
     $.each(response.playersInLobby, function(i, obj) {
         if(obj.isReadyToStart != null && obj.isReadyToStart) {
-            $("#playingList").append('<span class="badge badge-pill badge-success">' + obj.username +'</span>')
 
+            if(obj.playerId == playerId) {
+                 $("#playingList").append('<span class="badge badge-pill ME meReady">ME</span>')
+            }else {
+                $("#playingList").append('<span class="badge badge-pill badge-success">' + obj.username +'</span>')
+            }
 
             //Hide button if user is ready to go
             if(obj.playerId == playerId) {
@@ -39,7 +43,11 @@ function regeneratePlayersPlaying(response) {
             }
         }
         else {
-            $("#playingList").append('<span class="badge badge-pill badge-secondary">' + obj.username +'</span>')
+           if(obj.playerId == playerId) {
+                $("#playingList").append('<span class="badge badge-pill ME meNotReady">ME</span>')
+            }else {
+                $("#playingList").append('<span class="badge badge-pill badge-secondary">' + obj.username +'</span>')
+            }
         }
     });
 }
@@ -89,11 +97,13 @@ $(function() {
   var $contextMenu = $("#contextMenu");
 
     $("body").on("contextmenu", ".badge", function(e) {
-    $contextMenu.css({
-      display: "block",
-      left: e.pageX,
-      top: e.pageY
-    });
+        if(!$(this).hasClass("ME")) {
+            $contextMenu.css({
+              display: "block",
+              left: e.pageX,
+              top: e.pageY
+            });
+        }
     return false;
     });
 
