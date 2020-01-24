@@ -79,6 +79,26 @@ function executePeek() {
 
 function executeSteal() {
     //lastPlayerTouched
+    //$("#peekedImg").attr("src", "/imgs/" + imgSrc);
+
+    var myOrgCard = $('#StealImgUser').attr('src');
+    var newCard = $('#StealImgOther').attr('src');
+
+    $("#cardRobbed").text("HUNTER");
+
+    $("#StealModal").show();
+    $(".stealCard").fadeOut(1500);
+
+   setTimeout(function(){
+        $("#StealImgUser").attr("src", newCard);
+        $("#StealImgOther").attr("src", myOrgCard);
+    }, 1490);
+
+    $(".stealCard").fadeIn(300);
+
+    setTimeout(function(){$("#StealModal").fadeOut(300); }, 4000);
+
+   // setTimeout(function(){$("#StealModal").fadeOut(300); }, 3000);
 }
 
 function isTimeToSetupGame(response) {

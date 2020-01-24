@@ -114,7 +114,7 @@
 	border: 1px solid black;
 }
 
-#PeekedModal {
+.modalBackground {
     height: 100%;
     width: 100%;
     left: 0;
@@ -132,8 +132,33 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-
 	margin: auto;
+}
+
+.stealCard img {
+    max-width: 100%;
+    height: auto;
+}
+
+#StealScreen {
+    font-size: 2em;
+    color: white;
+    border-radius: 20px;
+    background-color: rgba(117, 117, 117);
+    padding: 50px 75px 75px 75px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+.stealCard {
+    width: 300px;
+    margin: 20px;
+    display: inline-block;
 }
 
     </style>
@@ -167,7 +192,8 @@
                                 <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
                             </div>
                             <div class="card__face card__face--back">
-                                <img width="200" id="middle1" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                                <img width="200" id="middle1" class="middleCard"
+                                     th:src="@{${'/imgs/back_of_card.jpg'}}"/>
                             </div>
                         </div>
                     </div>
@@ -177,7 +203,8 @@
                                 <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
                             </div>
                             <div class="card__face card__face--back">
-                                <img width="200" id="middle2" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                                <img width="200" id="middle2" class="middleCard"
+                                     th:src="@{${'/imgs/back_of_card.jpg'}}"/>
                             </div>
                         </div>
                     </div>
@@ -187,7 +214,8 @@
                                 <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
                             </div>
                             <div class="card__face card__face--back">
-                                <img width="200" id="middle3" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                                <img width="200" id="middle3" class="middleCard"
+                                     th:src="@{${'/imgs/back_of_card.jpg'}}"/>
                             </div>
                         </div>
                     </div>
@@ -212,18 +240,34 @@
 
 <!--Hidden contect menu-->
 <div id="contextMenu" class="dropdown clearfix">
-    <p>Options:<p>
+    <p>Options:
+    <p>
     <hr/>
     <button onclick="executePeek()">Peek</button>
     <button onclick="executeSteal()">Steal</button>
 </div>
 
 
-
 <!--Peek Modal-->
-<div id="PeekedModal">
+<div id="PeekedModal" class="modalBackground">
     <div>
-        <img src="#" id="peekedImg" />
+        <img src="#" id="peekedImg"/>
+    </div>
+</div>
+
+
+<!--Steal Modal-->
+<div id="StealModal" class="modalBackground">
+    <div id="StealScreen">
+
+        <p>You are now the: <span style="font-weight: bold" id="cardRobbed"></span></p>
+
+        <div class="stealCard">
+            <img th:src="@{${'/imgs/Hunter.png'}}"  id="StealImgUser"/>
+        </div>
+        <div class="stealCard">
+            <img th:src="@{${'/imgs/Robber.png'}}" id="StealImgOther"/>
+        </div>
     </div>
 </div>
 
