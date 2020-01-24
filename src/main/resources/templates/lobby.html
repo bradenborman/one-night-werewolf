@@ -113,6 +113,29 @@
     background-color: white;
 	border: 1px solid black;
 }
+
+#PeekedModal {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    position: fixed;
+    background-color: rgba(117, 117, 117, 0.84);
+    z-index: 99;
+    display: none;
+}
+
+#peekedImg {
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	margin: auto;
+}
+
     </style>
 </head>
 <body>
@@ -191,8 +214,17 @@
 <div id="contextMenu" class="dropdown clearfix">
     <p>Options:<p>
     <hr/>
-    <button>Peek</button>
-    <button>Steal</button>
+    <button onclick="executePeek()">Peek</button>
+    <button onclick="executeSteal()">Steal</button>
+</div>
+
+
+
+<!--Peek Modal-->
+<div id="PeekedModal">
+    <div>
+        <img src="#" id="peekedImg" />
+    </div>
 </div>
 
 </body>

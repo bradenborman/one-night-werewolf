@@ -2,6 +2,7 @@
 var stompClient = null;
 var playerId;
 var lobbyId;
+var lastPlayerTouched;
 
 function connect() {
     var socket = new SockJS('/one-night-werewolf-socket');
@@ -31,9 +32,9 @@ function regeneratePlayersPlaying(response) {
         if(obj.isReadyToStart != null && obj.isReadyToStart) {
 
             if(obj.playerId == playerId) {
-                 $("#playingList").append('<span class="badge badge-pill ME meReady">ME</span>')
+                 $("#playingList").append('<span id="' + obj.playerId +'" class="badge badge-pill ME meReady">ME</span>')
             }else {
-                $("#playingList").append('<span class="badge badge-pill badge-success">' + obj.username +'</span>')
+                $("#playingList").append('<span id="' + obj.playerId +'" class="badge badge-pill badge-success">' + obj.username +'</span>')
             }
 
             //Hide button if user is ready to go
@@ -44,9 +45,9 @@ function regeneratePlayersPlaying(response) {
         }
         else {
            if(obj.playerId == playerId) {
-                $("#playingList").append('<span class="badge badge-pill ME meNotReady">ME</span>')
+                $("#playingList").append('<span id="' + obj.playerId +'" class="badge badge-pill ME meNotReady">ME</span>')
             }else {
-                $("#playingList").append('<span class="badge badge-pill badge-secondary">' + obj.username +'</span>')
+                $("#playingList").append('<span id="' + obj.playerId +'" class="badge badge-pill badge-secondary">' + obj.username +'</span>')
             }
         }
     });
@@ -59,6 +60,25 @@ function readyToStart() {
 
 function returnHome() {
     window.location.href = "/";
+}
+
+function executePeek() {
+    var path = "/peek/" + lastPlayerTouched + "/" + lobbyId
+    $.get(path, function(imgSrc, status){
+       if(imgSrc != "No Role")
+       {
+           $("#peekedImg").attr("src", "/imgs/" + imgSrc);
+           $("#PeekedModal").show();
+           setTimeout(function(){$("#PeekedModal").fadeOut(300); }, 3000);
+       }
+    });
+
+
+
+}
+
+function executeSteal() {
+    //lastPlayerTouched
 }
 
 function isTimeToSetupGame(response) {
@@ -97,6 +117,9 @@ $(function() {
   var $contextMenu = $("#contextMenu");
 
     $("body").on("contextmenu", ".badge", function(e) {
+
+        lastPlayerTouched = $(this).attr('id')
+
         if(!$(this).hasClass("ME")) {
             $contextMenu.css({
               display: "block",

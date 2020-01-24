@@ -8,10 +8,8 @@ import borman.onenight.models.GameData;
 import borman.onenight.models.Lobby;
 import borman.onenight.services.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ApiController {
@@ -38,6 +36,12 @@ public class ApiController {
     public RetrieveRollResponse retrieveRoll(@RequestBody RetrieveRollRequest request) {
         GameData existingGameData = dataService.readJsonFile();
         return retrieveRollService.getUserRoll(request, existingGameData);
+    }
+
+    @GetMapping("/peek/{userId}/{lobbyId}")
+    public ResponseEntity<String> peek(@PathVariable("userId") String userId, @PathVariable("lobbyId") String lobbyId) {
+        GameData existingGameData = dataService.readJsonFile();
+        return ResponseEntity.ok(retrieveRollService.getUserRollById(userId, lobbyId, existingGameData));
     }
 
 
