@@ -73,9 +73,15 @@ function executePeek() {
        }
     });
 
-
-
 }
+
+function openTroublemaker() {
+           $("#TroubleMakerModal").show();
+           $("#card1").addClass("moveCard1");
+           $("#card2").addClass("moveCard2");
+           setTimeout(function(){$("#TroubleMakerModal").fadeOut(300); }, 3000);
+}
+
 
 function executeSteal() {
     //lastPlayerTouched

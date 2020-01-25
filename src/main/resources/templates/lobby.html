@@ -121,7 +121,7 @@
     top: 0;
     overflow: hidden;
     position: fixed;
-    background-color: rgba(117, 117, 117, 0.84);
+    background-color: rgba(117, 117, 117, 0.9);
     z-index: 99;
     display: none;
 }
@@ -160,6 +160,65 @@
     margin: 20px;
     display: inline-block;
 }
+
+#TroubleMakerScreen {
+    font-size: 2em;
+    border-radius: 20px;
+    background-color: rgba(117, 117, 117);
+    padding: 50px 75px 75px 75px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.troubleMadeCard {
+	width: 300px;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	margin-left: 20px;
+	margin-right: 20px;
+	border: 1px solid black;
+}
+
+.troubleMadeCard img {
+    max-width: 100%;
+    height: auto;
+}
+
+.moveCard1 {
+	animation: right 1.4s;
+	animation-fill-mode: forwards;
+	animation-delay: 1s;
+}
+
+.moveCard2 {
+	animation: left 1.4s;
+	animation-fill-mode: forwards;
+	animation-delay: 1s;
+}
+
+@keyframes right {
+  from {
+	left: 0%;
+  }
+  to {
+	left: 50%;
+  }
+}
+
+@keyframes left {
+  from {
+	right: 0%;
+  }
+  to {
+	right: 50%;
+  }
+}
+
 
     </style>
 </head>
@@ -245,6 +304,7 @@
     <hr/>
     <button onclick="executePeek()">Peek</button>
     <button onclick="executeSteal()">Steal</button>
+    <button onclick="openTroublemaker()">openTroublemaker</button>
 </div>
 
 
@@ -270,6 +330,20 @@
         </div>
     </div>
 </div>
+
+
+<!--Steal Modal-->
+<div id="TroubleMakerModal" class="modalBackground">
+    <div id="TroubleMakerScreen">
+        <div class="troubleMadeCard" id="card1">
+            <img th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+        </div>
+        <div class="troubleMadeCard" id="card2">
+            <img th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>
