@@ -9,6 +9,8 @@ spring:
     console:
       enabled: true
       path: /h2
+      settings:
+        web-allow-others: true
   jpa:
     generate-ddl: false
     hibernate:
