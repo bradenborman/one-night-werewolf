@@ -94,4 +94,8 @@ public class LobbyDao {
         String sql = "SELECT right_community_card FROM lobbies WHERE lobby_id = '" + lobbyId + "'";
         return jdbcTemplate.queryForObject(sql, String.class);
     }
+
+    public int countUsersInLobby(String lobbyId) {
+        return getPlayersInLobby(lobbyId).size();
+    }
 }

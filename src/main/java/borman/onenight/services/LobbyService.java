@@ -62,4 +62,9 @@ public class LobbyService {
 
         return Arrays.asList(left, middle, right);
     }
+
+    public boolean isRoomFromMe(String lobbyId) {
+        int MAX_SIZE = Role.values().length - 3;
+        return lobbyDao.countUsersInLobby(lobbyId) < MAX_SIZE;
+    }
 }
