@@ -26,7 +26,10 @@ function connect() {
 }
 
 function regeneratePlayersPlaying(response) {
+
     $("#playingList").empty()
+    $("#TroubleMakerSelectList").empty()
+
     $("#playingAmount").text(response.playersInLobby.length)
     $.each(response.playersInLobby, function(i, obj) {
         if(obj.isReadyToStart != null && obj.isReadyToStart) {
@@ -50,6 +53,12 @@ function regeneratePlayersPlaying(response) {
                 $("#playingList").append('<span id="' + obj.playerId +'" class="badge badge-pill badge-secondary">' + obj.username +'</span>')
             }
         }
+
+        //ALSO ADD TO TROUBLE MAKER SELECT LIST
+        var input = '<input class="TM_SELECTChk" type="checkbox" name="TM_SELECT" value="' + obj.playerId +'"> ' + obj.username + '<br>'
+        if(obj.playerId != playerId)
+            $(input).appendTo('#TroubleMakerSelectList');
+
     });
 }
 
@@ -77,9 +86,29 @@ function executePeek() {
 
 function openTroublemaker() {
            $("#TroubleMakerModal").show();
+}
+
+
+
+function executeTroublemaker() {
+
+           $("#TroubleMakerSelectScreenScreen").hide();
+           $("#TroubleMakerAnnimationScreen").show();
            $("#card1").addClass("moveCard1");
            $("#card2").addClass("moveCard2");
-           setTimeout(function(){$("#TroubleMakerModal").fadeOut(300); }, 3000);
+
+          //Put screens back to normal
+
+          $(".TM_SELECTChk").prop("checked", false);
+
+          setTimeout(function(){
+                $("#TroubleMakerModal").fadeOut(300);
+           }, 3000);
+          setTimeout(function(){
+               $("#TroubleMakerSelectScreenScreen").show();
+               $("#TroubleMakerAnnimationScreen").hide();
+          }, 3300);
+
 }
 
 
@@ -90,7 +119,7 @@ function executeSteal() {
     var myOrgCard = $('#StealImgUser').attr('src');
     var newCard = $('#StealImgOther').attr('src');
 
-    $("#cardRobbed").text("HUNTER");
+    $("#cardRobbed").text("_PLACEHOLDER_");
 
     $("#StealModal").show();
     $(".stealCard").fadeOut(1500);
@@ -150,8 +179,8 @@ $(function() {
         if(!$(this).hasClass("ME")) {
             $contextMenu.css({
               display: "block",
-              left: e.pageX,
-              top: e.pageY
+              left: (e.pageX - 15),
+              top: (e.pageY - 15)
             });
         }
     return false;
@@ -180,9 +209,11 @@ $(document).ready(function(){
 
 
             //For quick testing
+            var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
+
             $(".header").dblclick(function(){
-              for (var i = 0; i < 11; i++) {
-                 var url = "https://one-night-dealer.herokuapp.com/lobby/" + lobbyId + "/?playerName=testing";
+              for (var i = 0; i < 2; i++) {
+                 var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
                  window.open(url, '_blank');
               }
             });

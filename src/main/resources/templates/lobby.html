@@ -61,7 +61,7 @@
 
         .badge {
             min-width: 100px;
-            font-size: 2em;
+            font-size: 1.5em;
             padding: 15px;
             margin: 6px;
         }
@@ -102,6 +102,11 @@
 
 }
 
+#MiddleCardsSection {
+    width: 100%;
+    text-align: center;
+}
+
 .card__face--back {
   transform: rotateY(180deg);
 }
@@ -112,6 +117,10 @@
 	display: none;
     background-color: white;
 	border: 1px solid black;
+}
+
+.btn-link {
+    display: block;
 }
 
 .modalBackground {
@@ -152,6 +161,7 @@
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    border: 1px solid white;
 }
 
 
@@ -159,6 +169,10 @@
     width: 300px;
     margin: 20px;
     display: inline-block;
+}
+
+#StealImgOther {
+    filter: grayscale(100%);
 }
 
 #TroubleMakerScreen {
@@ -172,6 +186,11 @@
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    border: 1px solid white;
+}
+
+#TroubleMakerSelectList {
+    text-align: left;
 }
 
 .troubleMadeCard {
@@ -244,7 +263,6 @@
         <div class="col-sm-7">
             <div class="row">
                 <div id="MiddleCardsSection">
-                    <h3>Middle Cards</h3>
                     <div class="scene scene--card">
                         <div class="singleCard">
                             <div class="card__face card__face--front">
@@ -299,12 +317,11 @@
 
 <!--Hidden contect menu-->
 <div id="contextMenu" class="dropdown clearfix">
-    <p>Options:
-    <p>
-    <hr/>
-    <button onclick="executePeek()">Peek</button>
-    <button onclick="executeSteal()">Steal</button>
-    <button onclick="openTroublemaker()">openTroublemaker</button>
+    <p>Options:</p>
+    <hr style="margin-bottom: 10px"/>
+    <button class="btn btn-link" onclick="executePeek()">Seer</button>
+    <button class="btn btn-link" onclick="executeSteal()">Robber</button>
+    <button class="btn btn-link" onclick="openTroublemaker()">Troublemaker</button>
 </div>
 
 
@@ -323,7 +340,7 @@
         <p>You are now the: <span style="font-weight: bold" id="cardRobbed"></span></p>
 
         <div class="stealCard">
-            <img th:src="@{${'/imgs/Hunter.png'}}"  id="StealImgUser"/>
+            <img th:src="@{${'/imgs/Hunter.png'}}" id="StealImgUser"/>
         </div>
         <div class="stealCard">
             <img th:src="@{${'/imgs/Robber.png'}}" id="StealImgOther"/>
@@ -335,11 +352,19 @@
 <!--Steal Modal-->
 <div id="TroubleMakerModal" class="modalBackground">
     <div id="TroubleMakerScreen">
-        <div class="troubleMadeCard" id="card1">
-            <img th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+
+        <div id="TroubleMakerSelectScreenScreen">
+            <div id="TroubleMakerSelectList"></div>
+            <button onclick="executeTroublemaker()">execute</button>
         </div>
-        <div class="troubleMadeCard" id="card2">
-            <img th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+
+        <div style="display: none;" id="TroubleMakerAnnimationScreen">
+            <div class="troubleMadeCard" id="card1">
+                <img th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+            </div>
+            <div class="troubleMadeCard" id="card2">
+                <img th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+            </div>
         </div>
     </div>
 </div>
