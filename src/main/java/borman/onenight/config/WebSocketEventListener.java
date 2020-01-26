@@ -1,9 +1,8 @@
 package borman.onenight.config;
 
-import borman.onenight.models.GameData;
-import borman.onenight.models.Lobby;
+import borman.onenight.models.Player;
 import borman.onenight.models.UsersPlayingResponse;
-import borman.onenight.services.DataService;
+import borman.onenight.models.builders.UsersPlayingResponseBuilder;
 import borman.onenight.services.LobbyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,20 +14,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Component
 public class WebSocketEventListener {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
-
-    @Autowired
-    DataService dataService;
-
     @Autowired
     LobbyService lobbyService;
-
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
@@ -40,40 +34,23 @@ public class WebSocketEventListener {
 
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
-
-        GameData existingGameData = dataService.readJsonFile();
-
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String playerIdAndLobby = (String) headerAccessor.getSessionAttributes().get("playerId");
 
-        String[] x = playerIdAndLobby.split(":");
-        String playerId = x[0];
-        String lobby = x[1];
-
-        Lobby lobbyUserWasPlaying = existingGameData.getLobbyList().stream()
-                .filter(lob -> lob.getLobbyId().equals(lobby))
-                .findFirst()
-                .orElseThrow(RuntimeException::new);
+        String playerId = (String) headerAccessor.getSessionAttributes().get("playerId");
+        String lobbyID = (String) headerAccessor.getSessionAttributes().get("lobbyId");
 
         //RemoveUser
-        lobbyUserWasPlaying.setPlayersInLobby(lobbyUserWasPlaying.getPlayersInLobby().stream().filter(player -> !player.getPlayerId().equals(playerId)).collect(Collectors.toList()));
+        lobbyService.removeUserFromLobby(playerId, lobbyID);
 
-        lobbyService.updateGameDataWithNewLobbyDetail(existingGameData, lobbyUserWasPlaying);
+        List<Player> playersInLobby = lobbyService.getPlayersInLobby(lobbyID);
 
-        //Update with new data
-        dataService.writeDataToFile(existingGameData);
-
-
-        //Map to response - players list and player ale
-        UsersPlayingResponse response = new UsersPlayingResponse();
-        response.setPlayersInLobby(lobbyUserWasPlaying.getPlayersInLobby());
-        response.setGeneratedPlayerId(playerId);
-        response.setLobbyId(lobbyUserWasPlaying.getLobbyId());
-
-
+        UsersPlayingResponse response = UsersPlayingResponseBuilder.anUsersPlayingResponse()
+                .withGeneratedPlayerId(playerId)
+                .withLobbyId(lobbyID)
+                .withPlayersInLobby(playersInLobby)
+                .build();
 
         messagingTemplate.convertAndSend("/one-night/users-playing", response);
-        logger.info(playerId + " lost");
     }
 
 }

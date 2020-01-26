@@ -1,7 +1,21 @@
-create table student
+create table lobbies
 (
-   id integer not null,
-   name varchar(255) not null,
-   passport_number varchar(255) not null,
-   primary key(id)
+   lobby_id int NOT NULL AUTO_INCREMENT,
+   isLocked boolean DEFAULT false,
+   left_community_card varchar(30),
+   middle_community_card varchar(30),
+   right_community_card varchar(30),
+   primary key(lobby_id)
+);
+
+
+create table players
+(
+   player_id int NOT NULL AUTO_INCREMENT,
+   username varchar(75) not null,
+   is_ready_up boolean DEFAULT false,
+   lobby_playing int NOT NULL,
+   role_assigned varchar(75),
+   primary key(player_id),
+   FOREIGN KEY (lobby_playing) REFERENCES lobbies(lobby_id)
 );

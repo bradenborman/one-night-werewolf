@@ -24,7 +24,7 @@ public class ViewController {
 
     @GetMapping("/lobby/{lobby}")
     public synchronized String lobby(Model model, @PathVariable("lobby") String lobbyId, @RequestParam("playerName") String playerName) {
-        if (lobbyService.doesLobbyExist(lobbyId) && !lobbyService.isGameStarted(lobbyId)) {
+        if (lobbyService.doesLobbyExist(lobbyId) && !lobbyService.isGameLocked(lobbyId)) {
             model.addAttribute("lobby", lobbyId);
             model.addAttribute("playerName", playerName);
             return "lobby";

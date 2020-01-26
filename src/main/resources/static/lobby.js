@@ -109,8 +109,9 @@ function executeSteal() {
 
 function isTimeToSetupGame(response) {
 
-    //Hide Pregame and change text at top to started
+    //Hide Pregame and change text at top to started and flip over cards that were flipped pre game
     if(response.readyToStartGame != null && response.readyToStartGame) {
+        $(".singleCard").removeClass("is-flipped");
         $("#LobbyTxt").text("")
         $("#gamePlay").show(200);
         makeCallToRetrieveInitialRoll(response);

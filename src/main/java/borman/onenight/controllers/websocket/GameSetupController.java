@@ -1,12 +1,10 @@
 package borman.onenight.controllers.websocket;
 
-import borman.onenight.ReadyToStartService;
-import borman.onenight.utilities.RandomUtility;
+import borman.onenight.services.ReadyToStartService;
+import borman.onenight.models.builders.UsersPlayingResponseBuilder;
+import borman.onenight.services.UserService;
 import borman.onenight.models.*;
-import borman.onenight.services.DataService;
 import borman.onenight.services.LobbyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -14,16 +12,16 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 public class GameSetupController {
 
-    private static final Logger logger = LoggerFactory.getLogger(GameSetupController.class);
-
-    @Autowired
-    DataService dataService;
-
     @Autowired
     LobbyService lobbyService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     ReadyToStartService readyToStartService;
@@ -32,68 +30,38 @@ public class GameSetupController {
     @SendTo("/one-night/users-playing")
     public synchronized UsersPlayingResponse start(@Payload Player player, SimpMessageHeaderAccessor headerAccessor) {
 
-        GameData existingGameData = dataService.readJsonFile();
+        String createUserID = userService.createUser(player);
 
-        player.setPlayerId(RandomUtility.createUserIdForSession(player.getUsername()));
-        player.setReadyToStart(false);
+        headerAccessor.getSessionAttributes().put("playerId", createUserID);
+        headerAccessor.getSessionAttributes().put("lobbyId", player.getLobbyPlaying());
 
-        headerAccessor.getSessionAttributes().put("playerId", player.getPlayerId() + ":" + player.getLobbyPlaying());
-
-        //get lobby where user is playing.
-        Lobby lobbyUserIsPlaying = existingGameData.getLobbyList().stream()
-                .filter(lob -> lob.getLobbyId().equals(player.getLobbyPlaying()))
-                .findFirst()
-                .orElseThrow(RuntimeException::new);
-
-        lobbyUserIsPlaying.getPlayersInLobby().add(player);
-
-
-        //Update with new data
-        lobbyService.updateGameDataWithNewLobbyDetail(existingGameData, lobbyUserIsPlaying);
-        dataService.writeDataToFile(existingGameData);
-
-        //Map to response - players list and player ale
-        UsersPlayingResponse response = new UsersPlayingResponse();
-        response.setPlayersInLobby(lobbyUserIsPlaying.getPlayersInLobby());
-        response.setGeneratedPlayerId(player.getPlayerId());
-        response.setLobbyId(lobbyUserIsPlaying.getLobbyId());
-
-        return response;
+        List<Player> playersInLobby = lobbyService.getPlayersInLobby(player.getLobbyPlaying());
+        return UsersPlayingResponseBuilder.anUsersPlayingResponse()
+                .withGeneratedPlayerId(createUserID)
+                .withLobbyId(player.getLobbyPlaying())
+                .withPlayersInLobby(playersInLobby)
+                .build();
     }
 
     @MessageMapping("/ready-to-start")
     @SendTo("/one-night/users-playing")
     public synchronized UsersPlayingResponse readyToStart(@Payload ReadyToStartRequest readyToStartRequest) {
 
-        GameData existingGameData = dataService.readJsonFile();
-        UsersPlayingResponse response = new UsersPlayingResponse();
+        userService.updateReadyToPlay(readyToStartRequest.getPlayerId(), readyToStartRequest.getLobbyPlaying());
 
-        //get lobby where user is playing.
-        Lobby lobbyUserIsPlaying = existingGameData.getLobbyList().stream()
-                .filter(lob -> lob.getLobbyId().equals(readyToStartRequest.getLobbyPlaying()))
-                .findFirst()
-                .orElseThrow(RuntimeException::new);
+        Lobby lobby = new Lobby();
+        lobby.setLobbyId(readyToStartRequest.getLobbyPlaying());
+        lobby.setPlayersInLobby(lobbyService.getPlayersInLobby(readyToStartRequest.getLobbyPlaying()));
 
-        lobbyUserIsPlaying.getPlayersInLobby().stream()
-                .filter(player -> player.getPlayerId().equals(readyToStartRequest.getPlayerId()))
-                .findFirst()
-                .ifPresent(player -> {
-                    response.setGeneratedPlayerId(player.getPlayerId());
-                    player.setReadyToStart(true);
-                });
+        boolean isReadyToStart = readyToStartService.isReadyToStart(lobby);
 
-        response.setPlayersInLobby(lobbyUserIsPlaying.getPlayersInLobby());
-        response.setLobbyId(lobbyUserIsPlaying.getLobbyId());
+        UsersPlayingResponse response = UsersPlayingResponseBuilder.anUsersPlayingResponse()
+                .withGeneratedPlayerId(readyToStartRequest.getPlayerId())
+                .withLobbyId(readyToStartRequest.getLobbyPlaying())
+                .withPlayersInLobby(lobby.getPlayersInLobby())
+                .build();
 
-
-        response.setReadyToStartGame(
-            readyToStartService.isReadyToStart(lobbyUserIsPlaying)
-        );
-
-
-        //Update with new data
-        lobbyService.updateGameDataWithNewLobbyDetail(existingGameData, lobbyUserIsPlaying);
-        dataService.writeDataToFile(existingGameData);
+        response.setReadyToStartGame(isReadyToStart);
 
         return response;
     }
