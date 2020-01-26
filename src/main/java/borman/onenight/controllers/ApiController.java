@@ -2,6 +2,7 @@ package borman.onenight.controllers;
 
 import borman.onenight.models.RetrieveRollRequest;
 import borman.onenight.models.RetrieveRollResponse;
+import borman.onenight.models.RobbedResponse;
 import borman.onenight.services.LobbyService;
 import borman.onenight.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +35,10 @@ public class ApiController {
         );
     }
 
+    @GetMapping("/steal/{otherplayer}/{userId}/{lobbyId}")
+    public ResponseEntity<RobbedResponse> steal(@PathVariable("otherplayer") String otherplayer, @PathVariable("userId") String userId, @PathVariable("lobbyId") String lobbyId) {
+        return ResponseEntity.ok(
+                userService.swapUsersRole(otherplayer, userId, lobbyId)
+        );
+    }
 }

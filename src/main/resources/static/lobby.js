@@ -81,7 +81,6 @@ function executePeek() {
            setTimeout(function(){$("#PeekedModal").fadeOut(300); }, 3000);
        }
     });
-
 }
 
 function openTroublemaker() {
@@ -135,15 +134,21 @@ function executeTroublemaker(selected) {
 
 }
 
-
 function executeSteal() {
-    //lastPlayerTouched
-    //$("#peekedImg").attr("src", "/imgs/" + imgSrc);
+        var path = "/steal/" + lastPlayerTouched + "/" + playerId + "/" + lobbyId
+        $.get(path, function(data, status){
+            $("#cardRobbed").text(data.newRoleForRobber);
+            $("#StealImgOther").attr("src", "/imgs/" + data.imgSrc);
+             setTimeout(function(){
+                completeSteal()
+             }, 600);
+        });
+}
+
+function completeSteal() {
 
     var myOrgCard = $('#StealImgUser').attr('src');
     var newCard = $('#StealImgOther').attr('src');
-
-    $("#cardRobbed").text("_PLACEHOLDER_");
 
     $("#StealModal").show();
     $(".stealCard").fadeOut(1500);
@@ -156,8 +161,6 @@ function executeSteal() {
     $(".stealCard").fadeIn(300);
 
     setTimeout(function(){$("#StealModal").fadeOut(300); }, 4000);
-
-   // setTimeout(function(){$("#StealModal").fadeOut(300); }, 3000);
 }
 
 function isTimeToSetupGame(response) {
@@ -188,6 +191,8 @@ function makeCallToRetrieveInitialRoll() {
          $("#middle1").attr("src", "/imgs/" + data.middleCards[0]);
          $("#middle2").attr("src", "/imgs/" + data.middleCards[1]);
          $("#middle3").attr("src", "/imgs/" + data.middleCards[2]);
+         //Set my img for robber
+          $("#StealImgUser").attr("src", "/imgs/" + data.imgSrc);
        }
      })
 }
@@ -236,7 +241,7 @@ $(document).ready(function(){
             var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
 
             $(".header").dblclick(function(){
-              for (var i = 0; i < 5; i++) {
+              for (var i = 0; i < 2; i++) {
                  var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
                  window.open(url, '_blank');
               }

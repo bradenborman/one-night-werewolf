@@ -1,10 +1,7 @@
 package borman.onenight.services;
 
 import borman.onenight.daos.UserDao;
-import borman.onenight.models.Lobby;
-import borman.onenight.models.Player;
-import borman.onenight.models.RetrieveRollResponse;
-import borman.onenight.models.Role;
+import borman.onenight.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,10 +50,25 @@ public class UserService {
     }
 
     public String peekRollById(String userId, String lobbyId) {
-      try {
-          return getUsersRollById(userId, lobbyId).getImgSrc();
-      }catch (Exception e) {
-          return "No Role";
-      }
+        try {
+            return getUsersRollById(userId, lobbyId).getImgSrc();
+        } catch (Exception e) {
+            return "No Role";
+        }
+    }
+
+    public RobbedResponse swapUsersRole(String otherplayer, String userId, String lobbyId) {
+        RobbedResponse response = new RobbedResponse();
+
+        Player originalRobber = userDao.getPlayer(userId);
+        Player roleToChangeTo = userDao.getPlayer(otherplayer);
+
+        userDao.updatePlayRole(originalRobber.getRoleAssigned(), otherplayer);
+        userDao.updatePlayRole(roleToChangeTo.getRoleAssigned(), userId);
+
+        response.setNewRoleForRobber(roleToChangeTo.getRoleAssigned().getDisplayName());
+        response.setImgSrc(roleToChangeTo.getRoleAssigned().getImgSrc());
+
+        return response;
     }
 }
