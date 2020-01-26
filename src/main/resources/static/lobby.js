@@ -174,9 +174,19 @@ $(document).ready(function(){
     connect()
     lobbyId = $("#lobbyId").text()
 
-$(".scene--card").click(function(){
-  $(this).children(".singleCard").toggleClass('is-flipped');
-});
+    $(".scene--card").click(function(){
+      $(this).children(".singleCard").toggleClass('is-flipped');
+    });
+
+
+            //For quick testing
+            $(".header").dblclick(function(){
+              for (var i = 0; i < 11; i++) {
+                 var url = "https://one-night-dealer.herokuapp.com/lobby/" + lobbyId + "/?playerName=testing";
+                 window.open(url, '_blank');
+              }
+            });
+
 
 });
 
