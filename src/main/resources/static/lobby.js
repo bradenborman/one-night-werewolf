@@ -110,10 +110,26 @@ function attemptTroublemaker() {
 
 function executeTroublemaker(selected) {
 
-    //TODO
-    /*
-        Make call to backed to let know cards swapped
-    */
+    var request = { troubleMakerId_ONE: selected[0], troubleMakerId_TWO: selected[1]};
+
+    $.ajax({
+           url: "/swap-cards",
+           type:"POST",
+           data: JSON.stringify(request),
+           contentType:"application/json; charset=utf-8",
+           dataType:"json",
+           success: function(data){
+                //NOT working
+                console.log("success")
+                console.log(data)
+           }
+     })
+
+    completeTroublemaker()
+}
+
+
+function completeTroublemaker() {
 
            $("#TroubleMakerSelectScreenScreen").hide();
            $("#TroubleMakerAnnimationScreen").show();

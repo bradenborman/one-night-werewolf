@@ -3,6 +3,7 @@ package borman.onenight.controllers;
 import borman.onenight.models.RetrieveRollRequest;
 import borman.onenight.models.RetrieveRollResponse;
 import borman.onenight.models.RobbedResponse;
+import borman.onenight.models.SwapCardsRequest;
 import borman.onenight.services.LobbyService;
 import borman.onenight.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,13 @@ public class ApiController {
                 userService.swapUsersRole(otherplayer, userId, lobbyId)
         );
     }
+
+    @PostMapping("/swap-cards")
+    public ResponseEntity<String> swapCards(@RequestBody SwapCardsRequest request) {
+        System.out.println(String.format("SWAPING CARDS REQUEST: %s | %s ", request.getTroubleMakerId_ONE(), request.getTroubleMakerId_TWO()));
+        return ResponseEntity.ok(
+                "DONE"
+        );
+    }
+
 }
