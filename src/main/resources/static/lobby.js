@@ -88,9 +88,33 @@ function openTroublemaker() {
            $("#TroubleMakerModal").show();
 }
 
+function closeTroublemaker() {
+           $("#TroubleMakerModal").hide();
+}
 
+function attemptTroublemaker() {
 
-function executeTroublemaker() {
+    var selected = []
+
+       $('input:checkbox[name=TM_SELECT]').each(function()
+       {
+           if($(this).is(':checked')) {
+            selected.push($(this).val())
+           }
+
+       });
+
+     if(selected.length == 2)
+        executeTroublemaker(selected)
+
+}
+
+function executeTroublemaker(selected) {
+
+    //TODO
+    /*
+        Make call to backed to let know cards swapped
+    */
 
            $("#TroubleMakerSelectScreenScreen").hide();
            $("#TroubleMakerAnnimationScreen").show();
@@ -212,7 +236,7 @@ $(document).ready(function(){
             var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
 
             $(".header").dblclick(function(){
-              for (var i = 0; i < 2; i++) {
+              for (var i = 0; i < 5; i++) {
                  var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
                  window.open(url, '_blank');
               }

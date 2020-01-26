@@ -28,9 +28,7 @@ public class WebSocketEventListener {
     private SimpMessageSendingOperations messagingTemplate;
 
     @EventListener
-    public void handleWebSocketConnectListener(SessionConnectedEvent event) {
-        logger.info("Received a new web socket connection");
-    }
+    public void handleWebSocketConnectListener(SessionConnectedEvent event) { }
 
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {

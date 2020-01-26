@@ -53,7 +53,10 @@ public class UserService {
     }
 
     public String peekRollById(String userId, String lobbyId) {
-        //returns Img
-        return getUsersRollById(userId, lobbyId).getImgSrc();
+      try {
+          return getUsersRollById(userId, lobbyId).getImgSrc();
+      }catch (Exception e) {
+          return "No Role";
+      }
     }
 }

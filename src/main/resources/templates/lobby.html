@@ -336,9 +336,7 @@
 <!--Steal Modal-->
 <div id="StealModal" class="modalBackground">
     <div id="StealScreen">
-
         <p>You are now the: <span style="font-weight: bold" id="cardRobbed"></span></p>
-
         <div class="stealCard">
             <img th:src="@{${'/imgs/Hunter.png'}}" id="StealImgUser"/>
         </div>
@@ -355,7 +353,9 @@
 
         <div id="TroubleMakerSelectScreenScreen">
             <div id="TroubleMakerSelectList"></div>
-            <button onclick="executeTroublemaker()">execute</button>
+            <br />
+            <button class="btn btn-primary" onclick="attemptTroublemaker()">Cause Trouble</button>
+            <button class="btn btn-primary" onclick="closeTroublemaker()">Close</button>
         </div>
 
         <div style="display: none;" id="TroubleMakerAnnimationScreen">
