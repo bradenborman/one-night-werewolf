@@ -119,6 +119,14 @@
 	border: 1px solid black;
 }
 
+#contextMenuPlayerCard {
+	position: absolute;
+	padding: 5px;
+	display: none;
+    background-color: white;
+	border: 1px solid black;
+}
+
 .btn-link {
     display: block;
 }
@@ -319,9 +327,17 @@
 <div id="contextMenu" class="dropdown clearfix">
     <p>Options:</p>
     <hr style="margin-bottom: 10px"/>
-    <button class="btn btn-link" onclick="executePeek()">Seer</button>
-    <button class="btn btn-link" onclick="executeSteal()">Robber</button>
+    <button class="btn btn-link" onclick="executePeek()">Seer Action</button>
+    <button class="btn btn-link" onclick="executeSteal()">Robber Action</button>
     <button class="btn btn-link" onclick="openTroublemaker()">Troublemaker</button>
+</div>
+
+<!--Hidden contect menu-->
+<div id="contextMenuPlayerCard" class="dropdown clearfix">
+    <p>Options:</p>
+    <hr style="margin-bottom: 10px"/>
+    <button class="btn btn-link" onclick="executeDrunk()">Drunk Action</button>
+    <button class="btn btn-link" onclick="executeInsomniac()">Insomniac Action</button>
 </div>
 
 

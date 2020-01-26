@@ -163,6 +163,14 @@ function completeSteal() {
     setTimeout(function(){$("#StealModal").fadeOut(300); }, 4000);
 }
 
+function executeInsomniac() {
+    console.log("Insomniac Not setup yet")
+}
+
+function executeDrunk() {
+    console.log("Drunk Not setup yet")
+}
+
 function isTimeToSetupGame(response) {
 
     //Hide Pregame and change text at top to started and flip over cards that were flipped pre game
@@ -227,6 +235,36 @@ $(function() {
 
 });
 
+$(function() {
+
+  var $contextMenuPlayerCard = $("#contextMenuPlayerCard");
+
+    $("body").on("contextmenu", ".playingCard", function(e) {
+
+        var cardImg = $('#cardIMG').attr('src');
+
+        if(cardImg != "/imgs/back_of_card.jpg")
+        {
+            $contextMenuPlayerCard.css({
+              display: "block",
+              left: (e.pageX - 15),
+              top: (e.pageY - 15)
+            });
+        }
+    return false;
+    });
+
+    $contextMenuPlayerCard.on("click", "a", function() {
+        $contextMenuPlayerCard.hide();
+    });
+
+    $("#contextMenuPlayerCard").mouseleave(function(){
+    setTimeout(function(){
+        $contextMenuPlayerCard.hide(50);
+    }, 185);
+    });
+
+});
 
 $(document).ready(function(){
     connect()
@@ -241,7 +279,7 @@ $(document).ready(function(){
             var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
 
             $(".header").dblclick(function(){
-              for (var i = 0; i < 2; i++) {
+              for (var i = 0; i < 4; i++) {
                  var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
                  window.open(url, '_blank');
               }
