@@ -71,6 +71,14 @@ function returnHome() {
     window.location.href = "/";
 }
 
+function executeDrunk() {
+           $("#DrunkModal").show();
+}
+
+function closeDrunk() {
+           $("#DrunkModal").hide();
+}
+
 function executePeek() {
     var path = "/peek/" + lastPlayerTouched + "/" + lobbyId
     $.get(path, function(imgSrc, status){
@@ -191,10 +199,6 @@ function executeInsomniac() {
         });
 }
 
-function executeDrunk() {
-    console.log("Drunk Not setup yet")
-}
-
 function isTimeToSetupGame(response) {
 
     //Hide Pregame and change text at top to started and flip over cards that were flipped pre game
@@ -298,12 +302,23 @@ $(document).ready(function(){
       $(this).children(".singleCard").toggleClass('is-flipped');
     });
 
+    $(".drunkSelection").click(function(){
+          closeDrunk()
+          var action = $(this).attr('id')
+          $("#cardIMG").fadeOut(1000)
+           setTimeout(function(){
+                  $("#cardIMG").attr("src", "/imgs/back_of_card.jpg");
+                  $("#cardIMG").fadeIn(1000)
+           }, 1200);
+
+    });
+
 
             //For quick testing
             var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
 
             $(".header").dblclick(function(){
-              for (var i = 0; i < 2; i++) {
+              for (var i = 0; i < 5; i++) {
                  var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
                  window.open(url, '_blank');
               }
