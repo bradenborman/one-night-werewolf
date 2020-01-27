@@ -39,16 +39,17 @@ public class ApiController {
     @GetMapping("/steal/{otherplayer}/{userId}/{lobbyId}")
     public ResponseEntity<RobbedResponse> steal(@PathVariable("otherplayer") String otherplayer, @PathVariable("userId") String userId, @PathVariable("lobbyId") String lobbyId) {
         return ResponseEntity.ok(
-                userService.swapUsersRole(otherplayer, userId, lobbyId)
+                userService.swapUsersRoleRobber(otherplayer, userId, lobbyId)
         );
     }
 
     @PostMapping("/swap-cards")
     public ResponseEntity<String> swapCards(@RequestBody SwapCardsRequest request) {
         System.out.println(String.format("SWAPING CARDS REQUEST: %s | %s ", request.getTroubleMakerId_ONE(), request.getTroubleMakerId_TWO()));
-        return ResponseEntity.ok(
-                "DONE"
-        );
+        userService.swapUsersRoleTroubleMaker(request.getTroubleMakerId_ONE(), request.getTroubleMakerId_TWO());
+        return ResponseEntity.ok("DONE");
     }
+
+
 
 }

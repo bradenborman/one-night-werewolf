@@ -57,7 +57,7 @@ public class UserService {
         }
     }
 
-    public RobbedResponse swapUsersRole(String otherplayer, String userId, String lobbyId) {
+    public RobbedResponse swapUsersRoleRobber(String otherplayer, String userId, String lobbyId) {
         RobbedResponse response = new RobbedResponse();
 
         Player originalRobber = userDao.getPlayer(userId);
@@ -71,4 +71,13 @@ public class UserService {
 
         return response;
     }
+
+
+    public void swapUsersRoleTroubleMaker(String troubleMakerId_one, String troubleMakerId_two) {
+        Player one = userDao.getPlayer(troubleMakerId_one);
+        Player two = userDao.getPlayer(troubleMakerId_two);
+        userDao.updatePlayRole(two.getRoleAssigned(), troubleMakerId_one);
+        userDao.updatePlayRole(one.getRoleAssigned(), troubleMakerId_two);
+    }
+
 }

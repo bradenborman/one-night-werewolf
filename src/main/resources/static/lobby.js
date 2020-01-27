@@ -180,7 +180,15 @@ function completeSteal() {
 }
 
 function executeInsomniac() {
-    console.log("Insomniac Not setup yet")
+        var path = "/peek/" + playerId + "/" + lobbyId
+        $.get(path, function(imgSrc, status){
+           if(imgSrc != "No Role")
+           {
+               $("#peekedImg").attr("src", "/imgs/" + imgSrc);
+               $("#PeekedModal").show();
+               setTimeout(function(){$("#PeekedModal").fadeOut(300); }, 3000);
+           }
+        });
 }
 
 function executeDrunk() {
@@ -295,7 +303,7 @@ $(document).ready(function(){
             var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
 
             $(".header").dblclick(function(){
-              for (var i = 0; i < 4; i++) {
+              for (var i = 0; i < 2; i++) {
                  var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
                  window.open(url, '_blank');
               }
