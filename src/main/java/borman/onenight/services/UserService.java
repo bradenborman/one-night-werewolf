@@ -82,14 +82,20 @@ public class UserService {
 
     public DrunkActionResponse exucuteDrunkAction(DrunkActionRequest drunkActionRequest) {
 
-        DrunkActionResponse response = new DrunkActionResponse();
+        Role oldRole = userDao.getPlayer(drunkActionRequest.getUserId()).getRoleAssigned();
 
+        //Get new role for data
+        DrunkActionResponse response = new DrunkActionResponse();
+        Role role = Role.valueOf(lobbyService.getCommunityCardByPosition(drunkActionRequest.getCardSelectedPosition(), drunkActionRequest.getLobbyId()));
+        response.setImgSrc_new(role.getImgSrc());
+        response.setImgSrc_old(oldRole.getImgSrc());
         response.setPositionSwapped(drunkActionRequest.getCardSelectedPosition());
         response.setLobbyId(drunkActionRequest.getLobbyId());
         response.setPlayerId(drunkActionRequest.getUserId());
 
-        response.setImgSrc_old("Mason.png");
-        response.setImgSrc_new("Hunter.png");
+        //update database for users card and drunk in community.
+        lobbyService.updateCommunityCard(drunkActionRequest.getCardSelectedPosition(), Role.DRUNK.name(), drunkActionRequest.getLobbyId());
+        userDao.updatePlayRole(role, drunkActionRequest.getUserId());
 
         return response;
     }

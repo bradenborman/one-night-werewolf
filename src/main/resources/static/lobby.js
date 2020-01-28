@@ -33,17 +33,21 @@ function connect() {
 
 
                     if(response.playerId == playerId) {
-
-                        $("#cardIMG").attr("src", "/imgs/" + imgSrc_new);
-
-                        if(response.positionSwapped == "left")
+                        if(response.positionSwapped == "left") {
                             $('.scene--card:eq( 0 )').children(".singleCard").addClass('is-flipped');
+                            setTimeout(function(){ $('.scene--card:eq( 0 )').children(".singleCard").removeClass('is-flipped'); }, 3000);
+                        }
 
-                        if(response.positionSwapped == "middle")
+
+                        if(response.positionSwapped == "middle") {
                             $('.scene--card:eq( 1 )').children(".singleCard").addClass('is-flipped');
+                            setTimeout(function(){ $('.scene--card:eq( 1 )').children(".singleCard").removeClass('is-flipped'); }, 3000);
+                        }
 
-                        if(response.positionSwapped == "right")
+                        if(response.positionSwapped == "right") {
                             $('.scene--card:eq( 2 )').children(".singleCard").addClass('is-flipped');
+                            setTimeout(function(){ $('.scene--card:eq( 2 )').children(".singleCard").removeClass('is-flipped'); }, 3000);
+                        }
                     }
 
               } //Otherwise ignore -- For another lobby

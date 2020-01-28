@@ -1,8 +1,6 @@
 package borman.onenight.services;
 
 import borman.onenight.daos.LobbyDao;
-import borman.onenight.models.GameData;
-import borman.onenight.models.Lobby;
 import borman.onenight.models.Player;
 import borman.onenight.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +64,38 @@ public class LobbyService {
     public boolean isRoomFromMe(String lobbyId) {
         int MAX_SIZE = Role.values().length - 3;
         return lobbyDao.countUsersInLobby(lobbyId) < MAX_SIZE;
+    }
+
+    String getCommunityCardByPosition(String position, String lobbyId) {
+        switch (position) {
+            case "left":
+                return lobbyDao.fetchLeftCommunityCard(lobbyId);
+            case "middle":
+                return lobbyDao.fetchMiddleCommunityCard(lobbyId);
+            case "right":
+                return lobbyDao.fetchRightCommunityCard(lobbyId);
+            default:
+                return "";
+        }
+    }
+
+    void updateCommunityCard(String cardSelectedPosition, String name, String lobbyId) {
+        switch (cardSelectedPosition) {
+
+            case "left":
+                lobbyDao.updateLeftCommunityCard(name, lobbyId);
+                break;
+
+            case "middle":
+                lobbyDao.updateMiddleCommunityCard(name, lobbyId);
+                break;
+
+            case "right":
+                lobbyDao.updateRightCommunityCard(name, lobbyId);
+                break;
+
+            default:
+                break;
+        }
     }
 }
