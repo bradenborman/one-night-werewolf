@@ -66,4 +66,11 @@ public class GameSetupController {
         return response;
     }
 
+
+    @MessageMapping("/drunk-action")
+    @SendTo("/one-night/drunk-played")
+    public synchronized DrunkActionResponse drunkAction(@Payload DrunkActionRequest drunkActionRequest) {
+        return userService.exucuteDrunkAction(drunkActionRequest);
+    }
+
 }

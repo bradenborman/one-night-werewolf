@@ -18,6 +18,37 @@ function connect() {
                   } //Otherwise ignore -- For another lobby
         });
 
+        stompClient.subscribe('/one-night/drunk-played', function (json) {
+              var response = JSON.parse(json.body)
+              if(response.lobbyId == lobbyId) {
+
+                    if(response.positionSwapped == "left")
+                        $("#middle1").attr("src", "/imgs/" + response.imgSrc_old);
+
+                    if(response.positionSwapped == "middle")
+                        $("#middle2").attr("src", "/imgs/" + response.imgSrc_old);
+
+                    if(response.positionSwapped == "right")
+                        $("#middle3").attr("src", "/imgs/" + response.imgSrc_old);
+
+
+                    if(response.playerId == playerId) {
+
+                        $("#cardIMG").attr("src", "/imgs/" + imgSrc_new);
+
+                        if(response.positionSwapped == "left")
+                            $('.scene--card:eq( 0 )').children(".singleCard").addClass('is-flipped');
+
+                        if(response.positionSwapped == "middle")
+                            $('.scene--card:eq( 1 )').children(".singleCard").addClass('is-flipped');
+
+                        if(response.positionSwapped == "right")
+                            $('.scene--card:eq( 2 )').children(".singleCard").addClass('is-flipped');
+                    }
+
+              } //Otherwise ignore -- For another lobby
+        });
+
         var player = { username: $("#playerName").text(), lobbyPlaying: $("#lobbyId").text()};
         stompClient.send("/one-night/join-game", {}, JSON.stringify(player));
 
@@ -73,6 +104,16 @@ function returnHome() {
 
 function executeDrunk() {
            $("#DrunkModal").show();
+}
+
+function doDrunkCall(action) {
+       $("#cardIMG").fadeOut(1000)
+        setTimeout(function(){
+               $("#cardIMG").attr("src", "/imgs/back_of_card.jpg");
+               $("#cardIMG").fadeIn(1000)
+        }, 1200);
+        var drunkAction = { userId: playerId, lobbyId: lobbyId, cardSelectedPosition: action};
+        stompClient.send("/one-night/drunk-action", {}, JSON.stringify(drunkAction));
 }
 
 function closeDrunk() {
@@ -305,12 +346,7 @@ $(document).ready(function(){
     $(".drunkSelection").click(function(){
           closeDrunk()
           var action = $(this).attr('id')
-          $("#cardIMG").fadeOut(1000)
-           setTimeout(function(){
-                  $("#cardIMG").attr("src", "/imgs/back_of_card.jpg");
-                  $("#cardIMG").fadeIn(1000)
-           }, 1200);
-
+          doDrunkCall(action)
     });
 
 
@@ -318,7 +354,7 @@ $(document).ready(function(){
             var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
 
             $(".header").dblclick(function(){
-              for (var i = 0; i < 5; i++) {
+              for (var i = 0; i < 2; i++) {
                  var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
                  window.open(url, '_blank');
               }

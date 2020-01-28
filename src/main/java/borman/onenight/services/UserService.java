@@ -80,4 +80,17 @@ public class UserService {
         userDao.updatePlayRole(one.getRoleAssigned(), troubleMakerId_two);
     }
 
+    public DrunkActionResponse exucuteDrunkAction(DrunkActionRequest drunkActionRequest) {
+
+        DrunkActionResponse response = new DrunkActionResponse();
+
+        response.setPositionSwapped(drunkActionRequest.getCardSelectedPosition());
+        response.setLobbyId(drunkActionRequest.getLobbyId());
+        response.setPlayerId(drunkActionRequest.getUserId());
+
+        response.setImgSrc_old("Mason.png");
+        response.setImgSrc_new("Hunter.png");
+
+        return response;
+    }
 }
