@@ -372,8 +372,8 @@ async function openTabs() {
 
     var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
         for (var i = 0; i < 4; i++) {
-             var url = "/lobby/" + lobbyId + "/?playerName=" + name
+             var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
              window.open(url, '_blank');
-             await sleep(170);
+             await sleep(100);
         }
 }
