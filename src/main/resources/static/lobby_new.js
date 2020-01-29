@@ -246,6 +246,9 @@ function executeInsomniac() {
 
 function isTimeToSetupGame(response) {
 
+    //flip over card before game and each time response is heard
+    $('.scene--card').children(".singleCard").removeClass('is-flipped');
+
     //Hide Pregame and change text at top to started and flip over cards that were flipped pre game
     if(response.readyToStartGame != null && response.readyToStartGame) {
         $(".singleCard").removeClass("is-flipped");
@@ -354,16 +357,23 @@ $(document).ready(function(){
     });
 
 
-            //For quick testing
-            var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
-
             $(".header").dblclick(function(){
-              for (var i = 0; i < 2; i++) {
-                 var url = "/lobby/" + lobbyId + "/?playerName=" + names[i]
-                 window.open(url, '_blank');
-              }
+                openTabs()
             });
 
 
 });
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function openTabs() {
+
+    var names = ["Jimmy", "Lemmy", "Kenny", "William", "Elizabeth", "Nancy", "Joshua", "Stephanie", "Kathleen", "Scott", "Debra", "Diane", "Kyle"]
+        for (var i = 0; i < 4; i++) {
+             var url = "/lobby/" + lobbyId + "/?playerName=" + name
+             window.open(url, '_blank');
+             await sleep(170);
+        }
+}
