@@ -12,45 +12,54 @@
     <link href='https://fonts.googleapis.com/css?family=Butcherman' rel='stylesheet'>
 </head>
 <style>
+
+    #app {
+        margin-top: 50px;
+        max-width: 480px;
+        font-family: 'Butcherman';
+    }
+
     body {
-         background-color: rgba(181, 227, 232, 0.72);
+        background-color: rgb(37,40,45);
     }
 
     .header {
-        font-family: 'Butcherman';
         text-align: center;
         font-size: 4em;
-        color: #287780;
+        color: rgba(231, 208, 95, 0.65);
     }
 
     .options {
+        margin-top: 80px;
         padding: 20px;
         border-radius: 5px;
-        background-color: white;
         margin-bottom: 40px;
     }
 
     button {
-        padding-top: 30px;
-        padding-bottom: 30px;
-        margin-top: 20px;
-        font-size: 1.4em;
+        width: 100%;
+        font-size: 1.5em;
+        letter-spacing: 3px;
+        color: #181a14;
+        height: 80px;
+        border-radius: 10px;
+        box-shadow: 2px 4px rgba(231, 208, 95, 0.65);
+    }
+
+    .btn-block+.btn-block {
+        margin-top: 25px;
     }
 
 </style>
 <body>
-<div style="margin-top: 100px" class="container">
+<div id="app" class="container">
     <div class="row">
-        <div class="col-sm-6">
-            <img class="img-fluid" th:src="@{${'/imgs/one-night.png'}}"/>
-        </div>
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <h1 class="header">One Night<br />Werewolf</h1>
-            <div style="margin-top: 50px" class="row">
+            <div class="row">
                 <div class="col-sm-12 options">
-                    <h3>Options</h3>
-                    <button onclick="startGame()" class="btn btn-outline-info btn-block">Host</button>
-                    <button onclick="joinGame()" class="btn btn-outline-info btn-block">Join Game</button>
+                    <button onclick="startGame()" class="btn-block">Host</button>
+                    <button onclick="joinGame()" class="btn-block">Join Game</button>
                 </div>
             </div>
         </div>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/lobby_pc.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Butcherman' rel='stylesheet'>
+    <title>Lobby</title>
+
+    <style>
+        body {
+            background-color: rgba(181, 227, 232, 0.72);
+        }
+         .header {
+            margin-top: 15px;
+             font-family: 'Butcherman';
+             font-size: 2.5em;
+             color: #287780;
+         }
+         #preGame {
+            margin-top: 50px;
+         }
+         #gamePlay {
+            margin-top: 50px;
+         }
+         #playersPlaying {
+            margin-top: 50px;
+         }
+
+        .ME {
+            background-color: black;
+            color: white;
+            border: blue;
+        }
+
+        .meReady {
+            border: 5px solid #28A745;
+        }
+
+        .meNotReady {
+            border: 5px solid #6C757D;
+        }
+
+        .badge-success {
+            border: 5px solid #28A745;
+        }
+
+        .badge-secondary {
+            border: 5px solid #6C757D;
+        }
+
+        .badge:not(.ME):hover {
+           cursor: pointer;
+        }
+
+        .badge {
+            min-width: 100px;
+            font-size: 1.5em;
+            padding: 15px;
+            margin: 6px;
+        }
+
+.scene {
+  width: 200px;
+  height: 260px;
+  margin: 40px 0;
+  perspective: 600px;
+  display: inline-block;
+}
+
+.singleCard {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  backface-visibility: hidden;
+}
+
+
+.singleCard.is-flipped {
+  transform: rotateY(180deg);
+}
+
+
+.card__face--front {
+
+}
+
+#MiddleCardsSection {
+    width: 100%;
+    text-align: center;
+}
+
+.card__face--back {
+  transform: rotateY(180deg);
+}
+
+#contextMenu {
+	position: absolute;
+	padding: 5px;
+	display: none;
+    background-color: white;
+	border: 1px solid black;
+}
+
+#contextMenuPlayerCard {
+	position: absolute;
+	padding: 5px;
+	display: none;
+    background-color: white;
+	border: 1px solid black;
+}
+
+.btn-link {
+    display: block;
+}
+
+.modalBackground {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    position: fixed;
+    background-color: rgba(117, 117, 117, 0.9);
+    z-index: 99;
+    display: none;
+}
+
+#peekedImg {
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.stealCard img {
+    max-width: 100%;
+    height: auto;
+}
+
+#StealScreen {
+    font-size: 2em;
+    color: white;
+    border-radius: 20px;
+    background-color: rgba(117, 117, 117);
+    padding: 50px 75px 75px 75px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border: 1px solid white;
+}
+
+.stealCard {
+    width: 300px;
+    margin: 20px;
+    display: inline-block;
+}
+
+#StealImgOther {
+    filter: grayscale(100%);
+}
+
+#TroubleMakerScreen {
+    font-size: 2em;
+    border-radius: 20px;
+    background-color: rgba(117, 117, 117);
+    padding: 50px 75px 75px 75px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border: 1px solid white;
+}
+
+#TroubleMakerSelectList {
+    text-align: left;
+}
+
+.troubleMadeCard {
+	width: 300px;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	margin-left: 20px;
+	margin-right: 20px;
+	border: 1px solid black;
+}
+
+.troubleMadeCard img {
+    max-width: 100%;
+    height: auto;
+}
+
+.moveCard1 {
+	animation: right 1.4s;
+	animation-fill-mode: forwards;
+	animation-delay: 1s;
+}
+
+.moveCard2 {
+	animation: left 1.4s;
+	animation-fill-mode: forwards;
+	animation-delay: 1s;
+}
+
+@keyframes right {
+  from {
+	left: 0%;
+  }
+  to {
+	left: 50%;
+  }
+}
+
+@keyframes left {
+  from {
+	right: 0%;
+  }
+  to {
+	right: 50%;
+  }
+}
+
+#DrunkScreen {
+    font-size: 1.5em;
+    color: white;
+    border-radius: 20px;
+    background-color: rgba(117, 117, 117);
+    padding: 45px 50px 50px 50px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border: 1px solid #287780;
+}
+
+.drunkSelection {
+    padding: 10px;
+    display: inline-block;
+    width: 180px;
+    background-color: #287780;
+    border: 2px solid black;
+    color: white;
+    margin: 20px;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="header">One Night Werewolf</h2>
+            <hr/>
+            <h5 id="LobbyTxt" style="text-align:center;">Lobby: <span id="lobbyId" th:text="${lobby}"></span></h5>
+            <div style="float: right;" class="btn-group btn-group-lg">
+                <button type="button" id="readyToStartBtn" class="btn btn-primary" onclick="readyToStart()">Ready to
+                    Start
+                </button>
+                <button type="button" id="homeBtn" class="btn btn-primary" onclick="returnHome()">Back to Home</button>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="gamePlay">
+        <div class="col-sm-5">
+            <img id="cardIMG" class="playingCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+        </div>
+        <div class="col-sm-7">
+            <div class="row">
+                <div id="MiddleCardsSection">
+                    <div class="scene scene--card">
+                        <div class="singleCard">
+                            <div class="card__face card__face--front">
+                                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                            <div class="card__face card__face--back">
+                                <img width="200" id="middle1" class="middleCard"
+                                     th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scene scene--card">
+                        <div class="singleCard">
+                            <div class="card__face card__face--front">
+                                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                            <div class="card__face card__face--back">
+                                <img width="200" id="middle2" class="middleCard"
+                                     th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scene scene--card">
+                        <div class="singleCard">
+                            <div class="card__face card__face--front">
+                                <img width="200" class="middleCard" th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                            <div class="card__face card__face--back">
+                                <img width="200" id="middle3" class="middleCard"
+                                     th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="playersPlaying">
+                        <h3 style="text-align: center;">(<span id="playingAmount"></span>) Playing</h3>
+                        <div id="playingList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Divs for getting Id's-->
+<div style="display: none;" id="playerName" th:text="${playerName}"></div>
+<div style="display: none;" id="playerId"></div>
+<!--End Divs for getting Id's-->
+
+<!--Hidden contect menu-->
+<div id="contextMenu" class="dropdown clearfix">
+    <p>Options:</p>
+    <hr style="margin-bottom: 10px"/>
+    <button class="btn btn-link" onclick="executePeek()">Seer Action</button>
+    <button class="btn btn-link" onclick="executeSteal()">Robber Action</button>
+    <button class="btn btn-link" onclick="openTroublemaker()">Troublemaker</button>
+</div>
+
+<!--Hidden contect menu-->
+<div id="contextMenuPlayerCard" class="dropdown clearfix">
+    <p>Options:</p>
+    <hr style="margin-bottom: 10px"/>
+    <button class="btn btn-link" onclick="executeDrunk()">Drunk Action</button>
+    <button class="btn btn-link" onclick="executeInsomniac()">Insomniac Action</button>
+</div>
+
+
+<!--Peek Modal-->
+<div id="PeekedModal" class="modalBackground">
+    <div>
+        <img src="#" id="peekedImg"/>
+    </div>
+</div>
+
+
+<!--Steal Modal-->
+<div id="StealModal" class="modalBackground">
+    <div id="StealScreen">
+        <p>You are now the: <span style="font-weight: bold" id="cardRobbed"></span></p>
+        <div class="stealCard">
+            <img th:src="@{${'/imgs/back_of_card.jpg'}}" id="StealImgUser"/>
+        </div>
+        <div class="stealCard">
+            <img th:src="@{${'/imgs/back_of_card.jpg'}}" id="StealImgOther"/>
+        </div>
+    </div>
+</div>
+
+
+<!--Drunk Modal-->
+<div id="DrunkModal" class="modalBackground">
+    <div id="DrunkScreen">
+        <p>Please select a card to switch into</p>
+        <div id="left" class="drunkSelection">Left</div>
+        <div id="middle" class="drunkSelection">Middle</div>
+        <div id="right" class="drunkSelection">Right</div>
+        <br />
+        <button class="btn btn-primary" onclick="closeDrunk()">Close</button>
+    </div>
+</div>
+
+<!--Steal Modal-->
+<div id="TroubleMakerModal" class="modalBackground">
+    <div id="TroubleMakerScreen">
+
+        <div id="TroubleMakerSelectScreenScreen">
+            <div id="TroubleMakerSelectList"></div>
+            <br />
+            <button class="btn btn-primary" onclick="attemptTroublemaker()">Cause Trouble</button>
+            <button class="btn btn-primary" onclick="closeTroublemaker()">Close</button>
+        </div>
+
+        <div style="display: none;" id="TroubleMakerAnnimationScreen">
+            <div class="troubleMadeCard" id="card1">
+                <img th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+            </div>
+            <div class="troubleMadeCard" id="card2">
+                <img th:src="@{${'/imgs/back_of_card.jpg'}}"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
