@@ -7,9 +7,11 @@ body {
     margin-top: 30px;
     max-width: 480px;
     font-family: 'Butcherman';
+    overflow: hidden;
 }
 
 .myCardSection {
+   margin-top: 2em;
    text-align: center;
 }
 
@@ -25,6 +27,10 @@ body {
     margin-bottom: 40px;
 }
 
+.btn-block+.btn-block {
+    margin-top: 1.1em;
+}
+
 button {
     font-size: 1.5em;
     letter-spacing: 3px;
@@ -32,6 +38,7 @@ button {
     height: 80px;
     border-radius: 10px;
     box-shadow: 2px 4px rgba(231, 208, 95, 0.65);
+    margin-top: 25px;
 }
 
 .btn-block {
@@ -39,4 +46,9 @@ button {
     display: block;
     width: 80%;
     margin: auto;
+}
+
+.lobbyText {
+    color: white;
+    margin: 10px;
 }

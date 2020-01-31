@@ -4,25 +4,37 @@
     <title>One-Night</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Butcherman' rel='stylesheet'>
     <link rel="stylesheet" href="/css/lobby.css">
+    <script src="/lobby_connect.js"></script>
+    <script src="/global.js"></script>
 </head>
 <body>
+<div style="display: none;" id="playerName" th:text="${playerName}"></div>
+
 <div id="app" class="container">
+
+    <h7 class="lobbyText" id="LobbyTxt">Lobby: <span id="lobbyId" th:text="${lobby}"></span></h7>
+
     <div class="row myCardSection">
         <div class="col-sm-12">
-            <img class="img-fluid myCardImg" th:src="@{${'/imgs/Drunk.png'}}">
+            <img class="img-fluid myCardImg" th:src="@{${'/imgs/back_of_card.jpg'}}">
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12 options">
-            <button onclick="" class="btn-block">Do Action</button>
+            <button id="startBtn" onclick="readyToStart()" class="btn-block">Ready To Start</button>
+            <button disabled onclick="" class="btn-block">Do Action</button>
         </div>
     </div>
+
+
 </div>
 </body>
 </html>
