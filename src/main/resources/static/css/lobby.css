@@ -12,7 +12,9 @@ body {
 
 .lobbyText {
     color: white;
-    margin: 13px;
+    margin-left: 13px;
+    margin-top: 13px;
+    margin-bottom: 3px;
 }
 
 .myCardSection {
@@ -26,7 +28,7 @@ body {
 }
 
 .options {
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 40px;
