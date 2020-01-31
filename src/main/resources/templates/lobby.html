@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/lobby.css">
     <script src="/lobby_connect.js"></script>
     <script src="/global.js"></script>
+    <script src="/action.js"></script>
 </head>
 <body>
 <div style="display: none;" id="playerName" th:text="${playerName}"></div>
@@ -24,16 +25,15 @@
 
     <div class="row myCardSection">
         <div class="col-sm-12">
-            <img class="img-fluid myCardImg" th:src="@{${'/imgs/back_of_card.jpg'}}">
+            <img id="myCardImg" class="img-fluid myCardImg" th:src="@{${'/imgs/back_of_card.jpg'}}">
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12 options">
             <button id="startBtn" onclick="readyToStart()" class="btn-block">Ready To Start</button>
-            <button disabled onclick="" class="btn-block">Do Action</button>
+            <button disabled id="actionBtn" onclick="doAction()" class="btn-block">Do Action</button>
         </div>
     </div>
-
 
 </div>
 </body>

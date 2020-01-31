@@ -10,6 +10,11 @@ body {
     overflow: hidden;
 }
 
+.lobbyText {
+    color: white;
+    margin: 13px;
+}
+
 .myCardSection {
    margin-top: 2em;
    text-align: center;
@@ -38,7 +43,7 @@ button {
     height: 80px;
     border-radius: 10px;
     box-shadow: 2px 4px rgba(231, 208, 95, 0.65);
-    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .btn-block {
@@ -46,9 +51,4 @@ button {
     display: block;
     width: 80%;
     margin: auto;
-}
-
-.lobbyText {
-    color: white;
-    margin: 10px;
 }
