@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Butcherman' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <link rel="stylesheet" href="/css/lobby.css">
     <script src="/lobby_connect.js"></script>
     <script src="/global.js"></script>
@@ -30,10 +31,29 @@
     </div>
     <div class="row">
         <div class="col-sm-12 options">
-            <button id="startBtn" onclick="readyToStart()" class="btn-block">Ready To Start</button>
-            <button disabled id="actionBtn" onclick="doAction()" class="btn-block">Do Action</button>
+            <button id="startBtn" onclick="readyToStart()" class="btn-block">
+                Ready To Start
+            </button>
+            <button disabled id="actionBtn" onclick="doAction()" class="btn-block">
+                Do Action
+            </button>
         </div>
     </div>
+
+
+<!--    Look to user Thymeleaf template-->
+    <!--Modal-->
+    <div id="ActionModal" class="modalBackground">
+        <div id="ModalScreen">
+            <h3 id="UsersRole"></h3>
+            <div class="role" id="werewolfRole">Please look around for other Werewolves. <br/>If you are the only one, you may look in the middle</div>
+            <div class="role" id="roleNotSet">Role Not Set</div>
+        </div>
+
+        <button id="closeBtn" onclick="closeModal()">Close</button>
+
+    </div>
+
 
 </div>
 </body>

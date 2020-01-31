@@ -1,3 +1,20 @@
+function closeModal() {
+    $("#ActionModal").hide();
+}
+
 function doAction() {
-    alert("Doing " + playerRole + " Action")
+    $("#UsersRole").text(playerRole);
+    $("#ActionModal").show();
+    $("#userRoleActionPlaceholder").html(getUsersRoleHTML());
+}
+
+
+
+function getUsersRoleHTML() {
+
+    if(playerRole == "WEREWOLF")
+        $("#werewolfRole").show();
+    else
+        $("#roleNotSet").show();
+
 }

@@ -23,6 +23,8 @@ function readyToStart() {
     var readyToStartObj = { playerId: playerId, lobbyPlaying: $("#lobbyId").text()};
     stompClient.send("/one-night/ready-to-start", {}, JSON.stringify(readyToStartObj));
     $("#startBtn").css({"border": "2px solid green", "box-shadow": "2px 4px green"});
+    var loadingText = '<span class="spinner-border text-success"></span>';
+    $("#startBtn").html(loadingText)
 }
 
 function isTimeToSetupGame(response) {
