@@ -39,16 +39,16 @@ body {
 }
 
 button {
-    font-size: 1.5em;
-    letter-spacing: 3px;
+    font-size: 1.1em;
+    letter-spacing: 2px;
     word-spacing: .8em;
     color: #181a14;
     height: 2.6em;
     border-radius: 10px;
     box-shadow: 2px 4px rgba(231, 208, 95, 0.65);
     margin-bottom: 25px;
-    padding-bottom: 5px;
-    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .btn-block {
