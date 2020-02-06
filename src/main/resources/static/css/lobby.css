@@ -112,7 +112,8 @@ button {
 }
 
 #roleFeedback {
-    text-align: cemter;
+    text-align: center;
+    font-family: 'Actor';
     color: white;
     margin-top: 40px;
 }
