@@ -46,10 +46,32 @@
     <div id="ActionModal" class="modalBackground">
         <div id="ModalScreen">
             <h3 id="UsersRole"></h3>
-            <div class="role" id="werewolfRole">Please look around for other Werewolves. <br/>If you are the only one, you may look in the middle</div>
-            <div class="role" id="roleNotSet">Role Not Set</div>
+
+
+            <!-- ROLE SECTIONS -->
+            <div class="role" id="werewolfRole">
+                Please look around for other Werewolves. <br/>If you are the only one, you may look in the middle.
+            </div>
+            <div class="role" id="troubleMakerRole">
+                You may switch 2 OTHER player's cards, without looking at them.
+            </div>
+            <div class="role" id="roleNotSet">
+                Role Not Set
+            </div>
+            <!-- ACTIONS SECTIONS -->
+            <div class="supplier" id="middleCards">
+                <div class="middleCard">Left Card</div>
+                <div class="middleCard">Middle Card</div>
+                <div class="middleCard">Right Card</div>
+            </div>
+            <div class="supplier" id="allPlayers"><hr/>
+                <h4 style="text-align: center; margin-top: 18px;">Playing List</h4>
+                <div id="allPlayersList"></div>
+            </div>
+
         </div>
 
+        <p id="roleFeedback"></p>
         <button id="closeBtn" onclick="closeModal()">Close</button>
 
     </div>

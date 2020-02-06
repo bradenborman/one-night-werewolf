@@ -29,7 +29,7 @@ body {
 }
 
 .options {
-    padding: 20px;
+    padding: 15px;
     border-radius: 5px;
     margin-bottom: 40px;
 }
@@ -47,6 +47,8 @@ button {
     border-radius: 10px;
     box-shadow: 2px 4px rgba(231, 208, 95, 0.65);
     margin-bottom: 25px;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .btn-block {
@@ -76,6 +78,10 @@ button {
     display: none;
 }
 
+.supplier {
+    display: none;
+}
+
 #ModalScreen {
     font-family: 'Actor';
     margin-top: 2em;
@@ -93,4 +99,20 @@ button {
     margin-right: auto;
     width: 50%;
     bottom:   1.2em;
+}
+/* all middle cards */
+.middleCard {
+    padding: 8px;
+    margin: auto;
+    border: 1px solid black;
+    margin-top: 20px;
+    background-color: #F9F9F9;
+    color: #181a14;
+    box-shadow: 1px 2px rgba(231, 208, 95,0.65);
+}
+
+#roleFeedback {
+    text-align: cemter;
+    color: white;
+    margin-top: 40px;
 }

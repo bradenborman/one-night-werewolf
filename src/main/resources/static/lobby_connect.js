@@ -8,6 +8,7 @@ function connect() {
                       console.log(response)
                       playerId = playerId == null ? response.generatedPlayerId : playerId;
                       isTimeToSetupGame(response)
+                      regeneratePlayersPlaying(response)
                   }
         });
 
@@ -53,4 +54,14 @@ function makeCallToRetrieveInitialRoll() {
          $("#myCardImg").attr("src", "/imgs/" + data.imgSrc);
        }
      })
+}
+
+function regeneratePlayersPlaying(response) {
+    $("#allPlayersList").empty()
+    $.each(response.playersInLobby, function(i, obj) {
+        var input = '<input class="player" type="checkbox" name="player" value="' + obj.playerId +'"> ' + obj.username + '<br>'
+        if(obj.playerId != playerId)
+            $(input).appendTo('#allPlayersList');
+
+    });
 }

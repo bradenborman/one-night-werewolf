@@ -1,20 +1,38 @@
 function closeModal() {
     $("#ActionModal").hide();
+    $("#roleFeedback").text("");
 }
 
 function doAction() {
     $("#UsersRole").text(playerRole);
     $("#ActionModal").show();
-    $("#userRoleActionPlaceholder").html(getUsersRoleHTML());
+    getUsersRoleHTML()
+}
+
+function getUsersRoleHTML() {
+
+    $(".role").hide();
+    $(".supplier").hide();
+
+    if(playerRole == "WEREWOLF")
+        doWerewolf();
+    else if(playerRole == "TROUBLEMAKER")
+        doTroubleMaker();
+    else
+        $("#roleNotSet").show();
+
 }
 
 
 
-function getUsersRoleHTML() {
+function doWerewolf() {
+//TODO call out and get amount of werewolves in play. Show cards accordingly
 
-    if(playerRole == "WEREWOLF")
-        $("#werewolfRole").show();
-    else
-        $("#roleNotSet").show();
+    $("#werewolfRole").show();
+    $("#middleCards").show();
+}
 
+function doTroubleMaker() {
+    $("#troubleMakerRole").show();
+    $("#allPlayers").show();
 }
