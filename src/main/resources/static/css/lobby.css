@@ -99,6 +99,7 @@ button {
     margin-right: auto;
     width: 50%;
     bottom:   1.2em;
+    background-color: #F9F9F9;
 }
 /* all middle cards */
 .middleCard {
@@ -109,6 +110,7 @@ button {
     background-color: #F9F9F9;
     color: #181a14;
     box-shadow: 1px 2px rgba(231, 208, 95,0.65);
+    width: 66%;
 }
 
 #roleFeedback {

@@ -23,7 +23,7 @@ public class ReadyToStartService {
      */
     public boolean isReadyToStart(Lobby lobby) {
         boolean isReady = lobby.getPlayersInLobby().stream()
-                .allMatch(Player::isReadyToStart) && lobby.getPlayersInLobby().size() >= 3;
+                .allMatch(Player::isReadyToStart) && lobby.getPlayersInLobby().size() >= 1;
 
         if(isReady)
         {

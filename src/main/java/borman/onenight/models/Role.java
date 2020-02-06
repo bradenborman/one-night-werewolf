@@ -2,11 +2,15 @@ package borman.onenight.models;
 
 public enum Role {
 
-    WEREWOLF1("WEREWOLF", "WEREWOLF", "Werewolf.png"),
-    WEREWOLF2("WEREWOLF", "WEREWOLF", "Werewolf.png"),
-    TROUBLEMAKER("TROUBLEMAKER", "VILLAGER", "Troublemaker.png"),
-    ROBBER("ROBBER", "VILLAGER", "Robber.png"),
+//    WEREWOLF1("WEREWOLF", "WEREWOLF", "Werewolf.png"),
+//    WEREWOLF2("WEREWOLF", "WEREWOLF", "Werewolf.png"),
+//    TROUBLEMAKER("TROUBLEMAKER", "VILLAGER", "Troublemaker.png"),
+//    ROBBER("ROBBER", "VILLAGER", "Robber.png"),
     INSOMNIAC("INSOMNIAC", "VILLAGER", "Insomniac.png"),
+    INSOMNIAC2("INSOMNIAC", "VILLAGER", "Insomniac.png"),
+    INSOMNIAC3("INSOMNIAC", "VILLAGER", "Insomniac.png"),
+    INSOMNIAC4("INSOMNIAC", "VILLAGER", "Insomniac.png"),
+    INSOMNIAC5("INSOMNIAC", "VILLAGER", "Insomniac.png"),
     DRUNK("DRUNK", "VILLAGER", "Drunk.png"),
     SEER("SEER", "VILLAGER", "Seer.png"),
     TANNER("TANNER", "TANNER", "Tanner.png"),
